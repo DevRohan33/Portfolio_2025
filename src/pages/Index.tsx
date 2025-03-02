@@ -33,28 +33,15 @@ const Index = () => {
       });
     });
 
-    // Force initial visibility for all elements
-    const elements = document.querySelectorAll('.animate-on-scroll');
-    elements.forEach(el => {
-      // Make sure elements are visible even if animations haven't triggered
-      (el as HTMLElement).style.opacity = '1';
-      
-      // Add appropriate animation class based on data attribute or element class
-      if (el.classList.contains('fade-up-element')) {
-        el.classList.add('animate-fade-up');
-      } else if (el.classList.contains('fade-down-element')) {
-        el.classList.add('animate-fade-down');
-      } else if (el.classList.contains('slide-in-left-element')) {
-        el.classList.add('animate-slide-in-left');
-      } else if (el.classList.contains('slide-in-right-element')) {
-        el.classList.add('animate-slide-in-right');
-      } else if (el.classList.contains('scale-element')) {
-        el.classList.add('animate-scale');
-      } else {
-        // Default animation
-        el.classList.add('animate-fade-up');
-      }
-    });
+    // Force initial visibility to fix Three.js model issues
+    setTimeout(() => {
+      const elements = document.querySelectorAll('.animate-on-scroll');
+      elements.forEach(el => {
+        if (!el.classList.contains('animate-fade-up')) {
+          el.classList.add('animate-fade-up');
+        }
+      });
+    }, 100);
   }, []);
 
   return (

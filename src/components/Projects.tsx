@@ -9,25 +9,10 @@ const Projects = () => {
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    // Ensure animation handler is executed
+    // Use our enhanced scroll animation handler
     handleScrollAnimation();
 
-    // Force visibility for all project elements
-    const projectElements = document.querySelectorAll("#projects .animate-on-scroll");
-    projectElements.forEach((el) => {
-      // Ensure opacity is set to visible
-      (el as HTMLElement).style.opacity = '1';
-      
-      // Add appropriate animation class
-      if (el.classList.contains('fade-up-element')) {
-        el.classList.add('animate-fade-up');
-      } else {
-        el.classList.add('animate-fade-up');
-      }
-    });
-
     return () => {
-      // Cleanup observers if needed
       const elements = document.querySelectorAll(".animate-on-scroll");
       elements.forEach((el) => {
         const observer = new IntersectionObserver(() => {});
@@ -49,13 +34,13 @@ const Projects = () => {
           </p>
         </div>
 
-        <div className="mb-16" style={{ opacity: 1 }}>
+        <div className="mb-16">
           <ThreeJSModel />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project) => (
-            <div key={project.id} className="animate-on-scroll fade-up-element" style={{ opacity: 1 }}>
+            <div key={project.id} className="animate-on-scroll fade-up-element">
               <ProjectCard
                 title={project.title}
                 description={project.description}
