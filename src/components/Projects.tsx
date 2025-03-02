@@ -46,7 +46,7 @@ const Projects = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project) => (
-            <div key={project.id} className="animate-on-scroll">
+            <div key={project.id} className="animate-on-scroll fade-up-element">
               <ProjectCard
                 title={project.title}
                 description={project.description}

@@ -125,28 +125,30 @@
     bg-white shadow-md hover:shadow-xl;
   }
   
+  /* Fix for the circular dependency - remove @apply directives */
   .animate-on-scroll {
-    @apply opacity-0;
+    opacity: 0;
   }
   
-  .animate-on-scroll.animate-fade-up {
-    @apply animate-fade-up;
+  /* These classes will be used to mark elements for specific animations */
+  .fade-up-element {
+    /* This is just a marker class, no styles needed */
   }
   
-  .animate-on-scroll.animate-fade-down {
-    @apply animate-fade-down;
+  .fade-down-element {
+    /* This is just a marker class, no styles needed */
   }
   
-  .animate-on-scroll.animate-slide-in-left {
-    @apply animate-slide-in-left;
+  .slide-in-left-element {
+    /* This is just a marker class, no styles needed */
   }
   
-  .animate-on-scroll.animate-slide-in-right {
-    @apply animate-slide-in-right;
+  .slide-in-right-element {
+    /* This is just a marker class, no styles needed */
   }
   
-  .animate-on-scroll.animate-scale {
-    @apply animate-scale;
+  .scale-element {
+    /* This is just a marker class, no styles needed */
   }
 
   .progress-bar {

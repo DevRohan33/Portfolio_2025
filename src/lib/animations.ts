@@ -43,7 +43,22 @@ export const handleScrollAnimation = () => {
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('animate-fade-up');
+          // Instead of adding a class that tries to @apply another class,
+          // directly add the animation class
+          if (entry.target.classList.contains('fade-up-element')) {
+            entry.target.classList.add('animate-fade-up');
+          } else if (entry.target.classList.contains('fade-down-element')) {
+            entry.target.classList.add('animate-fade-down');
+          } else if (entry.target.classList.contains('slide-in-left-element')) {
+            entry.target.classList.add('animate-slide-in-left');
+          } else if (entry.target.classList.contains('slide-in-right-element')) {
+            entry.target.classList.add('animate-slide-in-right');
+          } else if (entry.target.classList.contains('scale-element')) {
+            entry.target.classList.add('animate-scale');
+          } else {
+            // Default animation
+            entry.target.classList.add('animate-fade-up');
+          }
           observer.unobserve(entry.target);
         }
       });
