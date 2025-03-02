@@ -37,7 +37,7 @@ const Index = () => {
     const elements = document.querySelectorAll('.animate-on-scroll');
     elements.forEach(el => {
       // Make sure elements are visible even if animations haven't triggered
-      el.style.opacity = '1';
+      (el as HTMLElement).style.opacity = '1';
       
       // Add appropriate animation class based on data attribute or element class
       if (el.classList.contains('fade-up-element')) {
