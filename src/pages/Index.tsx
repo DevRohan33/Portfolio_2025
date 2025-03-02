@@ -32,6 +32,16 @@ const Index = () => {
         });
       });
     });
+
+    // Force initial visibility to fix Three.js model issues
+    setTimeout(() => {
+      const elements = document.querySelectorAll('.animate-on-scroll');
+      elements.forEach(el => {
+        if (!el.classList.contains('animate-fade-up')) {
+          el.classList.add('animate-fade-up');
+        }
+      });
+    }, 100);
   }, []);
 
   return (

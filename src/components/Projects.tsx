@@ -3,27 +3,21 @@ import { projects } from "@/lib/data";
 import ProjectCard from "./ProjectCard";
 import ThreeJSModel from "./ThreeJSModel";
 import { useEffect, useRef } from "react";
+import { handleScrollAnimation } from "@/lib/animations";
 
 const Projects = () => {
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("animate-fade-up");
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    const elements = document.querySelectorAll(".animate-on-scroll");
-    elements.forEach((el) => observer.observe(el));
+    // Use our enhanced scroll animation handler
+    handleScrollAnimation();
 
     return () => {
-      elements.forEach((el) => observer.unobserve(el));
+      const elements = document.querySelectorAll(".animate-on-scroll");
+      elements.forEach((el) => {
+        const observer = new IntersectionObserver(() => {});
+        observer.unobserve(el);
+      });
     };
   }, []);
 
