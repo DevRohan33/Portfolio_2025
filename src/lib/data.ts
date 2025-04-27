@@ -1,11 +1,11 @@
 
 export const personalInfo = {
   name: "SK Rohan Parveag",
-  title: "Full-Stack Developer",
+  title: "Web Developer",
   email: "skrohanparveag@gmail.com",
   phone: "+9185858059644",
   github: "https://github.com/DevRohan33",
-  about: "I am a passionate Full-Stack Developer with expertise in Python, SQL, PHP, and JavaScript. My technical skills span across backend development, database management, and UI/UX design. I have experience in designing and developing innovative web applications, automation tools, and GUI-based software. Currently, I am an intern at Design Intelligence LLP, where I work on cutting-edge projects to build efficient and scalable applications."
+  about: "I am a passionate Web Developer with expertise in React, JavaScript, Python, SQL, PHP. My technical skills span across frontend development, database management, and UI/UX design. I have experience in designing and developing innovative web applications, automation tools, and GUI-based software. Currently, I am an intern at Design Intelligence LLP, where I work on cutting-edge projects to build efficient and scalable applications."
 };
 
 export const skills = {
@@ -13,7 +13,7 @@ export const skills = {
     { name: "Python", level: 90 },
     { name: "C", level: 70 },
     { name: "JavaScript", level: 85 },
-    { name: "PHP", level: 80 }
+    { name: "PHP", level: 60 }
   ],
   frontend: [
     { name: "HTML", level: 95 },
@@ -22,16 +22,16 @@ export const skills = {
     { name: "Tailwind CSS", level: 90 }
   ],
   backend: [
-    { name: "Django", level: 85 },
-    { name: "Flask", level: 80 },
-    { name: "Node.js", level: 75 },
-    { name: "PHP", level: 80 }
+    { name: "Django", level: 50 },
+    { name: "Flask", level: 50 },
+    { name: "Node.js", level: 85 },
+    { name: "PHP", level: 70 }
   ],
   database: [
     { name: "SQL", level: 85 },
     { name: "MySQL", level: 85 },
-    { name: "MongoDB", level: 75 },
-    { name: "PostgreSQL", level: 70 }
+    { name: "MongoDB", level: 70 },
+    { name: "PostgreSQL", level: 50 }
   ],
   tools: [
     { name: "Git", level: 90 },
@@ -39,12 +39,12 @@ export const skills = {
     { name: "Power BI", level: 80 },
     { name: "Docker", level: 70 }
   ],
-  other: [
-    { name: "OOP", level: 90 },
-    { name: "Data Structures", level: 85 },
-    { name: "Algorithms", level: 85 },
-    { name: "GUI Development", level: 80 }
-  ]
+  ai: [
+    { name: "AI Automation", level: 65 },
+    { name: "Workflow Building", level: 60 },
+    { name: "AI Agent Development", level: 50 },
+    { name: "AI Tools Integration", level: 55 }
+  ],
 };
 
 export const projects = [
@@ -52,7 +52,7 @@ export const projects = [
     id: 1,
     title: "Infiw3b Website",
     description: "Designed and developed a responsive website using Next.js and Tailwind CSS with interactive UI elements for seamless user experience. Implemented server-side rendering (SSR) for fast loading times.",
-    image: "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+    image: "/image/infiw3b.jpg",
     tags: ["Next.js", "Tailwind CSS", "React", "SSR"],
     demoLink: "https://infiw3bwebsite.vercel.app/",
     githubLink: "https://github.com/DevRohan33"
@@ -61,37 +61,72 @@ export const projects = [
     id: 2,
     title: "Jarves (AI-Powered Assistant)",
     description: "Built an advanced AI-powered virtual assistant using Python and OpenAI's API. Integrated features like voice commands, task automation, and chatbot functionality. Designed a user-friendly GUI with Tkinter for easy interaction.",
-    image: "https://images.unsplash.com/photo-1677442136019-21780ecad0f5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+    image: "/image/jarves.jpeg",
     tags: ["Python", "OpenAI API", "Tkinter", "AI"],
     demoLink: "#",
     githubLink: "https://github.com/DevRohan33"
   },
   {
     id: 3,
-    title: "Beam Calculator",
-    description: "Developed a structural beam calculator for engineers and architects. Implemented complex mathematical algorithms for accurate load calculations. Designed an intuitive GUI with real-time result updates.",
-    image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
-    tags: ["Python", "Mathematics", "GUI", "Engineering"],
-    demoLink: "#",
-    githubLink: "https://github.com/DevRohan33"
+    title: "SMG Energy Website",
+    description: "Designed and developed a responsive website using React and Tailwind CSS with interactive UI elements for seamless user experience. Implemented smooth animation and backend .",
+    image: "/image/smg.jpg",
+    tags: ["TypeScript", "js", "React", "UI/UX"],
+    demoLink: "https://smgenergy.vercel.app/",
+    githubLink: "https://github.com/DevRohan33/motion-to-watts-marine"
   },
   {
     id: 4,
-    title: "Invoice Generator",
-    description: "Created a fully functional invoice generator using Python and Flask. Features include customizable templates, automatic tax calculations, and PDF generation. Integrated database support to store invoices securely.",
-    image: "https://images.unsplash.com/photo-1507925921958-8a62f3d1a50d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
-    tags: ["Python", "Flask", "PDF", "Database"],
-    demoLink: "#",
-    githubLink: "https://github.com/DevRohan33"
+    title: "Stock Market Analysis",
+    description: "NSE Stock Analysis is a Python-based project that fetches real-time stock market data, analyzes trends, and presents the results in a beautifully formatted HTML table.",
+    image: "/image/stock.png",
+    tags: ["Python","Twelve Data API", "Mathematics", "GUI"],
+    demoLink: "https://github.com/DevRohan33/Stock_Market_Analysis",
+    githubLink: "https://github.com/DevRohan33/Stock_Market_Analysis"
   },
   {
     id: 5,
+    title: "Beam Cost Calculator",
+    description: "Developed a structural beam calculator for engineers and architects. Implemented complex mathematical algorithms for accurate load calculations. Designed an intuitive GUI with real-time result updates.",
+    image: "/image/beam.jpg",
+    tags: ["Python","javaScript", "Mathematics", "GUI", "Engineering"],
+    demoLink: "https://67abb863b13c84da53b8e5bb--snazzy-taiyaki-917e9d.netlify.app/",
+    githubLink: "https://github.com/DevRohan33/Beam_Cost_Calculation"
+  },
+  {
+    id: 6,
+    title: "Invoice Generator",
+    description: "Created a fully functional invoice generator using Python and Flask. Features include customizable templates, automatic tax calculations, and PDF generation. Integrated database support to store invoices securely.",
+    image: "/image/invoice.jpg",
+    tags: ["Python","typeScript", "Flask", "PDF", "Database"],
+    demoLink: "https://invoice-generator-liard-three.vercel.app/",
+    githubLink: "https://github.com/DevRohan33/invoice_generator"
+  },{
+    id: 7,
+    title: "AigemyX Website",
+    description: "Created a fully functional AigenyX using React and JavaScript . Features include customizable chatBot, automatic response. Integrated database support to store data securely.",
+    image: "/image/aigenyx.jpg",
+    tags: ["React","typeScript", "N8N", "OpenAI","Database"],
+    demoLink: "https://aigenyx.vercel.app/",
+    githubLink: "https://github.com/DevRohan33/Aigenyx"
+  },
+  {
+    id: 8,
     title: "Konva Project",
     description: "Built an interactive graphics editor using Konva.js and JavaScript. Features include drag-and-drop elements, shape manipulation, and layering options. Optimized for high-performance rendering in modern browsers.",
-    image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+    image: "/image/konva.jpg",
+    tags: ["JavaScript", "Konva.js", "Canvas", "UI/UX"],
+    demoLink: "https://github.com/DevRohan33/Konva-JS-",
+    githubLink: "https://github.com/DevRohan33/Konva-JS-"
+  },
+  {
+    id: 9,
+    title: "3D CylinderCube",
+    description: "Built an interactive graphics editor using Konva.js and JavaScript. Features include drag-and-drop elements, shape manipulation, and layering options. Optimized for high-performance rendering in modern browsers.",
+    image: "/image/3d-cylinder.jpg",
     tags: ["JavaScript", "Konva.js", "Canvas", "UI/UX"],
     demoLink: "#",
-    githubLink: "https://github.com/DevRohan33"
+    githubLink: "https://github.com/DevRohan33/3D-CylinderCube"
   }
 ];
 

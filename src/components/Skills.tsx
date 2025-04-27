@@ -79,7 +79,7 @@ const Skills = () => {
           <SkillCategory title="Backend Development" skills={skills.backend} />
           <SkillCategory title="Database Management" skills={skills.database} />
           <SkillCategory title="Tools & Technologies" skills={skills.tools} />
-          <SkillCategory title="Other Skills" skills={skills.other} />
+          <SkillCategory title="Other Skills" skills={skills.ai} />
         </div>
       </div>
     </section>

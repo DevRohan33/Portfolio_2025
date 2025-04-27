@@ -39,7 +39,7 @@ const About = () => {
               <div className="w-64 h-64 md:w-80 md:h-80 bg-primary/10 rounded-full absolute -top-4 -left-4"></div>
               <div className="w-64 h-64 md:w-80 md:h-80 overflow-hidden rounded-full border-4 border-white shadow-xl relative z-10">
                 <img
-                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80"
+                  src="image/profil.jpg"
                   alt="SK Rohan Parveag"
                   className="object-cover w-full h-full"
                 />

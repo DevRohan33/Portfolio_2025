@@ -49,10 +49,9 @@ const Projects = () => {
           </p>
         </div>
 
-        <div className="mb-16" style={{ opacity: 1 }}>
+        <div className="mb-24 mt-12" style={{ opacity: 1, height: '500px' }}>
           <ThreeJSModel />
         </div>
-
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project) => (
             <div key={project.id} className="animate-on-scroll fade-up-element" style={{ opacity: 1 }}>

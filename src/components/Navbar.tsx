@@ -40,7 +40,7 @@ const Navbar = () => {
             href="#home"
             className="text-xl font-bold tracking-tight text-primary"
           >
-            SK Rohan
+            Rohan
           </a>
 
           {/* Desktop Navigation */}
