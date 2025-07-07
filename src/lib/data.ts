@@ -3,17 +3,17 @@ export const personalInfo = {
   name: "SK Rohan Parveag",
   title: "Web Developer",
   email: "skrohanparveag@gmail.com",
-  phone: "+9185858059644",
+  phone: "+918585059644",
   github: "https://github.com/DevRohan33",
-  about: "I am a passionate Web Developer with expertise in React, JavaScript, Python, SQL, PHP. My technical skills span across frontend development, database management, and UI/UX design. I have experience in designing and developing innovative web applications, automation tools, and GUI-based software. Currently, I am an intern at Design Intelligence LLP, where I work on cutting-edge projects to build efficient and scalable applications."
+  about: "I am a passionate Web Developer with hands-on experience in React, JavaScript, Python, SQL, and PHP. My technical skill set spans frontend development, backend integration, database management, and intuitive UI/UX design. I specialize in building innovative web applications, automation tools, and interactive GUI-based software. Currently, I am working as a Junior Software Developer at Design Intelligence LLP, where I contribute to developing scalable applications, AI-based solutions, and deploying efficient systems using modern web technologies."
 };
 
 export const skills = {
   languages: [
-    { name: "Python", level: 90 },
-    { name: "C", level: 70 },
-    { name: "JavaScript", level: 85 },
-    { name: "PHP", level: 60 }
+    { name: "Python", level: 80 },
+    { name: "C", level: 60 },
+    { name: "JavaScript", level: 75 },
+    { name: "PHP", level: 40 }
   ],
   frontend: [
     { name: "HTML", level: 95 },
@@ -23,21 +23,21 @@ export const skills = {
   ],
   backend: [
     { name: "Django", level: 50 },
-    { name: "Flask", level: 50 },
-    { name: "Node.js", level: 85 },
-    { name: "PHP", level: 70 }
+    { name: "Flask", level: 30 },
+    { name: "Node.js", level: 40 },
+    { name: "PHP", level: 40 }
   ],
   database: [
     { name: "SQL", level: 85 },
-    { name: "MySQL", level: 85 },
-    { name: "MongoDB", level: 70 },
+    { name: "MySQL", level: 50 },
+    { name: "MongoDB", level: 50 },
     { name: "PostgreSQL", level: 50 }
   ],
   tools: [
     { name: "Git", level: 90 },
     { name: "Figma", level: 85 },
     { name: "Power BI", level: 80 },
-    { name: "Docker", level: 70 }
+    { name: "Docker", level: 30 }
   ],
   ai: [
     { name: "AI Automation", level: 65 },
@@ -50,11 +50,11 @@ export const skills = {
 export const projects = [
   {
     id: 1,
-    title: "Infiw3b Website",
-    description: "Designed and developed a responsive website using Next.js and Tailwind CSS with interactive UI elements for seamless user experience. Implemented server-side rendering (SSR) for fast loading times.",
-    image: "/image/infiw3b.jpg",
+    title: "FytTrk WebApp",
+    description: "Designed and developed a responsive webapp with install features for daily GYM tracking ",
+    image: "/image/FYTTRK.png",
     tags: ["Next.js", "Tailwind CSS", "React", "SSR"],
-    demoLink: "https://infiw3bwebsite.vercel.app/",
+    demoLink: "https://fittrk.vercel.app/",
     githubLink: "https://github.com/DevRohan33"
   },
   {
@@ -86,12 +86,12 @@ export const projects = [
   },
   {
     id: 5,
-    title: "Beam Cost Calculator",
-    description: "Developed a structural beam calculator for engineers and architects. Implemented complex mathematical algorithms for accurate load calculations. Designed an intuitive GUI with real-time result updates.",
-    image: "/image/beam.jpg",
-    tags: ["Python","javaScript", "Mathematics", "GUI", "Engineering"],
-    demoLink: "https://67abb863b13c84da53b8e5bb--snazzy-taiyaki-917e9d.netlify.app/",
-    githubLink: "https://github.com/DevRohan33/Beam_Cost_Calculation"
+    title: "Gpt Jugad",
+    description: "Developed a ChatBot with using multiple model  and abel to get free api key for those model",
+    image: "/image/gpt.png",
+    tags: ["React","javaScript", " Talwind CSS","ai api"],
+    demoLink: "https://gpt-jugaad.vercel.app/",
+    githubLink: "https://github.com/DevRohan33/"
   },
   {
     id: 6,
@@ -133,41 +133,57 @@ export const projects = [
 export const experience = [
   {
     id: 1,
-    role: "Intern",
+    role: "Junior Software Developer",
     company: "Design Intelligence LLP",
-    period: "Feb 2025 - Present",
+    period: "Jul 2025 - Present",
     description: [
-      "Developing scalable web applications using React.js, Next.js, and Django.",
-      "Implementing RESTful APIs and database management for efficient backend operations.",
-      "Enhancing user experience by optimizing UI/UX design in Figma.",
-      "Working on automation tools, calculators, and AI-based applications."
-    ]
+      "Working on Python scripting for automation and backend services.",
+      "Contributing to front-end and full-stack development tasks.",
+      "Designing minimal 3D visuals using Three.js.",
+      "Developing AI-powered tools and agents for various use cases.",
+      "Handling deployment processes for web applications and AI agents."
+      
+    ],
+    employmentType: "Permanent (Remote)"
   },
   {
     id: 2,
-    role: "Python Programming Intern",
-    company: "CodSoft",
-    period: "Jul - Aug 2024",
+    role: "Intern",
+    company: "Design Intelligence LLP",
+    period: "Feb 2025 - Jun 2025",
     description: [
-      "Developed To-Do List Application",
-      "Created Calculator GUI",
-      "Built Password Generator",
-      "Designed Contact Book Application"
+      "Worked on front-end development using React.js and Next.js.",
+      "Assisted in backend development and automation with Python.",
+      "Explored and implemented basic 3D design features using Three.js.",
+      "Collaborated with the design team for UI/UX improvements."
     ]
   },
   {
     id: 3,
     role: "Python Programming Intern",
+    company: "CodSoft",
+    period: "Jul - Aug 2024",
+    description: [
+      "Developed To-Do List Application.",
+      "Created Calculator GUI.",
+      "Built Password Generator.",
+      "Designed Contact Book Application."
+    ]
+  },
+  {
+    id: 4,
+    role: "Python Programming Intern",
     company: "Oasis Infobyte",
     period: "Aug - Sep 2024",
     description: [
-      "Created Voice Assistant",
-      "Developed Weather App",
-      "Built Chat Application",
-      "Designed BMI Calculator"
+      "Created Voice Assistant.",
+      "Developed Weather App.",
+      "Built Chat Application.",
+      "Designed BMI Calculator."
     ]
   }
 ];
+
 
 export const certifications = [
   { id: 1, title: "LeetCode 100+ Problems Solved" },
