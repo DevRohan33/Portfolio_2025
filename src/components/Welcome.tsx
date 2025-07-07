@@ -188,7 +188,7 @@ const Welcome = () => {
               className="rounded-full border-blue-200 hover:border-primary/40 backdrop-blur-sm bg-white/40 hover:bg-white/60 text-gray-700 shadow-sm transition-all duration-300"
               onClick={() =>
                 window.open(
-                  "https://drive.google.com/file/d/1-DvqMm3DQRzKOglTDRY8ZyPQ2-uiBskZ/view?usp=drivesdk",
+                  "https://drive.google.com/file/d/1FkdgZXJS-hkhyse_0loA3FZW_3LEa5eQ/view?usp=drivesdk",
                   "_blank",
                   "noopener,noreferrer"
                 )
