@@ -71,9 +71,9 @@ export const projects = [
     title: "SMG Energy Website",
     description: "Designed and developed a responsive website using React and Tailwind CSS with interactive UI elements for seamless user experience. Implemented smooth animation and backend .",
     image: "/image/smg.jpg",
-    tags: ["TypeScript", "js", "React", "UI/UX"],
-    demoLink: "https://smgenergy.vercel.app/",
-    githubLink: "https://github.com/DevRohan33/motion-to-watts-marine"
+    tags: ["js", "React", "Talwind", "UI/UX"],
+    demoLink: "https://www.smgenergyandengineering.com/",
+    githubLink: "https://github.com/DevRohan33/"
   },
   {
     id: 4,
