@@ -80,7 +80,7 @@ const MySaasApp = () => {
             {/* App Info */}
             <div className="flex-1 min-w-0">
               <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
-                Prompt Generator
+                Prompt Converter
               </h1>
               
               <div className="flex items-center gap-4 mb-3">
