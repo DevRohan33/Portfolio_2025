@@ -45,15 +45,26 @@ const Navbar = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex space-x-8">
-            {navLinks.map((link) => (
-              <a
-                key={link.id}
-                href={`#${link.id}`}
-                className="text-sm font-medium text-foreground hover:text-primary transition-colors duration-300 link-hover"
-              >
-                {link.title}
-              </a>
-            ))}
+            {navLinks.map((link) =>
+              link.type === "page" ? (
+                <a
+                  key={link.id}
+                  href={link.id} 
+                  className="text-sm font-medium text-foreground hover:text-primary transition-colors"
+                >
+                  {link.title}
+                </a>
+              ) : (
+                <a
+                  key={link.id}
+                  href={`#${link.id}`}
+                  className="text-sm font-medium text-foreground hover:text-primary transition-colors"
+                >
+                  {link.title}
+                </a>
+              )
+            )}
+
           </nav>
 
           {/* Mobile Menu Button */}
@@ -75,16 +86,26 @@ const Navbar = () => {
         )}
       >
         <div className="flex flex-col h-full justify-center items-center space-y-8 p-4">
-          {navLinks.map((link) => (
-            <a
-              key={link.id}
-              href={`#${link.id}`}
-              className="text-xl font-medium text-foreground hover:text-primary transition-colors"
-              onClick={() => setIsOpen(false)}
-            >
-              {link.title}
-            </a>
-          ))}
+          {navLinks.map((link) =>
+            link.type === "page" ? (
+              <a
+                key={link.id}
+                href={link.id} // external page route
+                className="text-sm font-medium text-foreground hover:text-primary transition-colors"
+              >
+                {link.title}
+              </a>
+            ) : (
+              <a
+                key={link.id}
+                href={`#${link.id}`} // same-page section
+                className="text-sm font-medium text-foreground hover:text-primary transition-colors"
+              >
+                {link.title}
+              </a>
+            )
+          )}
+          
         </div>
       </div>
     </header>
