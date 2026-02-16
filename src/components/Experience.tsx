@@ -1,7 +1,7 @@
 
 import { experience, certifications } from "@/lib/data";
 import { useEffect, useRef } from "react";
-import { Award, Briefcase } from "lucide-react";
+import { Award, Briefcase, BrainCircuit } from "lucide-react";
 
 const Experience = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -104,14 +104,26 @@ const Experience = () => {
               </div>
             </div>
 
-            {/* Additional Skills Card */}
-            <div className="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-all duration-300 mt-6 animate-on-scroll">
-              <h3 className="text-xl font-semibold mb-6">Additional Skills</h3>
+            {/* Core Competencies Card */}
+            <div className="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-all duration-300 mt-6 border border-border/50 animate-on-scroll">
+              <h3 className="text-xl font-semibold mb-6 flex items-center gap-2">
+                <BrainCircuit size={20} className="text-primary" />
+                Core Competencies
+              </h3>
               <div className="flex flex-wrap gap-2">
-                {["OOP", "Data Structures", "Algorithms", "GUI Development", "API Integration", "Database Design", "UX/UI Design", "Responsive Design"].map((skill, index) => (
+                {[
+                  "System Architecture",
+                  "AI Agent Logic",
+                  "Database Optimization",
+                  "Scalable Web Apps",
+                  "API Orchestration",
+                  "RAG Implementation",
+                  "Automated Workflows",
+                  "Problem Solving",
+                ].map((skill, index) => (
                   <span
                     key={index}
-                    className="inline-block px-3 py-1 rounded-full text-sm bg-secondary text-foreground"
+                    className="inline-block px-3 py-1.5 rounded-full text-sm bg-secondary/70 text-secondary-foreground font-medium"
                   >
                     {skill}
                   </span>

@@ -114,32 +114,32 @@ const Contact = () => {
               </div>
 
               <div className="mt-12">
-                <h4 className="text-lg font-medium mb-4">Follow Me</h4>
+                <h4 className="text-sm font-bold uppercase tracking-widest text-primary mb-6">Connect Socially</h4>
                 <div className="flex gap-4">
-                  <a 
-                    href="https://github.com/DevRohan33"
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center hover:bg-primary hover:text-white transition-all duration-300"
-                  >
-                    <Github size={18} />
-                  </a>
-                  <a 
-                    href="https://www.linkedin.com/in/sk-rohan-parveag-999294212/"
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center hover:bg-primary hover:text-white transition-all duration-300"
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect width="4" height="12" x="2" y="9"></rect><circle cx="4" cy="4" r="2"></circle></svg>
-                  </a>
-                  <a 
-                    href="https://x.com/RohanParveag"
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center hover:bg-primary hover:text-white transition-all duration-300"
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg>
-                  </a>
+                  {[
+                    { icon: Github, href: "https://github.com/DevRohan33" },
+                    { 
+                      icon: () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect width="4" height="12" x="2" y="9"></rect><circle cx="4" cy="4" r="2"></circle></svg>,
+                      href: "https://www.linkedin.com/in/sk-rohan-parveag-999294212/" 
+                    },
+                    { 
+                      icon: () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg>,
+                      href: "https://x.com/RohanParveag" 
+                    }
+                  ].map((social, i) => {
+                    const Icon = social.icon as any;
+                    return (
+                      <a 
+                        key={i}
+                        href={social.href}
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="w-12 h-12 rounded-xl bg-primary/5 flex items-center justify-center text-primary border border-primary/10 hover:bg-primary hover:text-white hover:scale-110 transition-all duration-300 shadow-sm"
+                      >
+                        {typeof Icon === 'function' ? <Icon /> : <Icon size={20} />}
+                      </a>
+                    );
+                  })}
                 </div>
               </div>
             </div>

@@ -10,19 +10,19 @@ const Welcome = () => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
     const particles = [];
     const particleCount = 100;
-    
+
     // Set canvas to full screen
     const resizeCanvas = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     };
-    
-    window.addEventListener('resize', resizeCanvas);
+
+    window.addEventListener("resize", resizeCanvas);
     resizeCanvas();
-    
+
     // Particle class
     class Particle {
       x: number;
@@ -31,20 +31,22 @@ const Welcome = () => {
       speedX: number;
       speedY: number;
       color: string;
-    
+
       constructor() {
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
         this.size = Math.random() * 5 + 1;
         this.speedX = Math.random() * 3 - 1.5;
         this.speedY = Math.random() * 3 - 1.5;
-        this.color = `hsla(${Math.random() * 40 + 200}, 80%, 60%, ${Math.random() * 0.3 + 0.1})`;
+        this.color = `hsla(${Math.random() * 40 + 200}, 80%, 60%, ${
+          Math.random() * 0.3 + 0.1
+        })`;
       }
-    
+
       update() {
         this.x += this.speedX;
         this.y += this.speedY;
-    
+
         if (this.x > canvas.width || this.x < 0) {
           this.speedX = -this.speedX;
         }
@@ -52,7 +54,7 @@ const Welcome = () => {
           this.speedY = -this.speedY;
         }
       }
-    
+
       draw() {
         ctx.fillStyle = this.color;
         ctx.beginPath();
@@ -60,13 +62,12 @@ const Welcome = () => {
         ctx.fill();
       }
     }
-    
-    
+
     // Create particles
     for (let i = 0; i < particleCount; i++) {
       particles.push(new Particle());
     }
-    
+
     // Connection lines between particles
     function connectParticles() {
       const maxDistance = 150;
@@ -75,10 +76,12 @@ const Welcome = () => {
           const dx = particles[i].x - particles[j].x;
           const dy = particles[i].y - particles[j].y;
           const distance = Math.sqrt(dx * dx + dy * dy);
-          
+
           if (distance < maxDistance) {
             ctx.beginPath();
-            ctx.strokeStyle = `rgba(66, 133, 244, ${1 - distance / maxDistance})`;
+            ctx.strokeStyle = `rgba(66, 133, 244, ${
+              1 - distance / maxDistance
+            })`;
             ctx.lineWidth = 0.8;
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
@@ -87,32 +90,37 @@ const Welcome = () => {
         }
       }
     }
-    
+
     // Animation loop
     function animate() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
+
       // Draw gradient background
-      const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-      gradient.addColorStop(0, 'rgba(240, 249, 255, 1)');
-      gradient.addColorStop(1, 'rgba(214, 240, 255, 1)');
+      const gradient = ctx.createLinearGradient(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+      );
+      gradient.addColorStop(0, "rgba(240, 249, 255, 1)");
+      gradient.addColorStop(1, "rgba(214, 240, 255, 1)");
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
-      
+
       // Update and draw particles
       for (let i = 0; i < particles.length; i++) {
         particles[i].update();
         particles[i].draw();
       }
-      
+
       connectParticles();
       requestAnimationFrame(animate);
     }
-    
+
     animate();
-    
+
     return () => {
-      window.removeEventListener('resize', resizeCanvas);
+      window.removeEventListener("resize", resizeCanvas);
     };
   }, []);
 
@@ -122,28 +130,29 @@ const Welcome = () => {
       className="relative min-h-screen flex items-center justify-center px-4 overflow-hidden pt-20"
     >
       {/* Canvas Background */}
-      <canvas 
-        ref={canvasRef} 
-        className="absolute inset-0 z-0" 
-        style={{ backgroundColor: 'rgba(240, 249, 255, 0.8)' }}
+      <canvas
+        ref={canvasRef}
+        className="absolute inset-0 z-0"
+        style={{ backgroundColor: "rgba(240, 249, 255, 0.8)" }}
       />
 
       <div className="max-w-7xl w-full mx-auto z-10 relative">
         <div className="flex flex-col items-center text-center">
           {/* Name Tag */}
           <div className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium mb-4 bg-white/50 backdrop-blur-sm text-primary shadow-sm border border-blue-100/30 animate-fade-down animate-delay-100">
-            Web Developer
+            Generative AI Developer
           </div>
 
-          {/* Main Heading - Removed background */}
-          <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold mb-4 animate-fade-down animate-delay-200">
-            <span className="text-primary">SK Rohan</span>
-            <span className="text-gray-800">Parveag</span>
+          {/* Main Heading */}
+          <h1 className="text-5xl md:text-6xl lg:text-8xl font-black mb-6 animate-fade-down animate-delay-200 tracking-tight leading-none">
+            <span className="text-primary block md:inline">SK Rohan </span>
+            <span className="text-gray-900 block md:inline">Parveag</span>
           </h1>
 
-          {/* Description - Made background transparent */}
-          <p className="max-w-2xl text-lg md:text-xl text-gray-700 mb-8 animate-fade-down animate-delay-300">
-            Building elegant, user-centric web experiences with expertise in Python, React, and JavaScript.
+          {/* Description */}
+          <p className="max-w-3xl text-xl md:text-2xl text-gray-700/80 mb-10 animate-fade-down animate-delay-300 font-medium leading-relaxed">
+            Architecting the future with <span className="text-primary font-bold">Generative AI</span> & <span className="text-primary font-bold">Web Innovation</span>. 
+            Crafting intelligent, automated solutions for the modern business.
           </p>
 
           {/* Contact Links with more transparency */}
@@ -176,9 +185,13 @@ const Welcome = () => {
           {/* CTA Buttons */}
           <div className="flex flex-wrap gap-4 justify-center animate-fade-down animate-delay-500">
             <Button
-              size="lg" 
+              size="lg"
               className="rounded-full bg-primary hover:bg-primary/90 shadow-lg shadow-primary/20 transition-all duration-300"
-              onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}
+              onClick={() =>
+                document
+                  .getElementById("projects")
+                  ?.scrollIntoView({ behavior: "smooth" })
+              }
             >
               View My Projects
             </Button>
@@ -188,13 +201,13 @@ const Welcome = () => {
               className="rounded-full border-blue-200 hover:border-primary/40 backdrop-blur-sm bg-white/40 hover:bg-white/60 text-gray-700 shadow-sm transition-all duration-300"
               onClick={() =>
                 window.open(
-                  "https://drive.google.com/file/d/1FkdgZXJS-hkhyse_0loA3FZW_3LEa5eQ/view?usp=drivesdk",
+                  "https://resume-data-rohan.s3.eu-north-1.amazonaws.com/Rohan.pdf",
                   "_blank",
                   "noopener,noreferrer"
                 )
               }
             >
-              Download Resume
+              Show Resume
             </Button>
           </div>
         </div>

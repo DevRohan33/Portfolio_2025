@@ -8,7 +8,8 @@
     "build": "vite build",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "vectorize": "node scripts/vectorize.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
@@ -46,11 +47,14 @@
     "clsx": "^2.1.1",
     "cmdk": "^1.0.0",
     "date-fns": "^3.6.0",
+    "dotenv": "^17.2.3",
     "embla-carousel-react": "^8.3.0",
+    "framer-motion": "^12.29.2",
     "input-otp": "^1.2.4",
     "lil-gui": "^0.20.0",
     "lucide-react": "^0.462.0",
     "next-themes": "^0.3.0",
+    "openai": "^6.17.0",
     "react": "^18.3.1",
     "react-day-picker": "^8.10.1",
     "react-dom": "^18.3.1",

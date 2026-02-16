@@ -7,7 +7,6 @@ const App = () => {
     <Router>
       <Routes>
         <Route path="/" element={<Index />} />
-        <Route path="/app" element={<MySaasApp />} />
       </Routes>
     </Router>
   );

@@ -1,0 +1,46 @@
+# Portfolio of SK Rohan Parveag
+
+## About Me
+I am a Web Developer and AI Enthusiast with expertise in Python, React, 3js and data-driven development. My work bridges front-end engineering and intelligent backend systems, combining modern web technologies with AI automation, RAG, and data science principles. Currently, I work as a Junior Software Developer at Design Intelligence, where I build scalable web and AI-powered applications, Quickbase app and design 3D visualizations using Three.js.
+
+## Technical Skills
+- AI / ML: Large Language Models (LLMs), Retrieval-Augmented Generation (RAG), LangChain & LangGraph, Hugging Face Ecosystem, OpenAI API Integration, Prompt Engineering & AI Agents, Vector Databases (FAISS, Pinecone, Chroma).
+- Languages: Python (Backend, AI, Automation), JavaScript (Frontend & Backend), C (Core Programming & Fundamentals).
+- Web Frameworks: React.js, FastAPI, Django, Flask, RESTful API Design.
+- Databases: PostgreSQL, MongoDB, SQL.
+- Data Science: NumPy, Pandas, Matplotlib, Data Cleaning & EDA.
+- Tools & Platforms: Git & GitHub, Docker, AWS (EC2, RDS, S3, IAM), CI/CD Basics, Three.js.
+
+## Professional Experience
+- Junior Software Developer at Design Intelligence LLP (Jul 2025 - Present): Python scripting for automation, backend services, full-stack development, 3D visuals with Three.js, AI-powered tools and agents, deployment.
+- Intern at Design Intelligence LLP (Feb 2025 - Jun 2025): Front-end (React/Next), Python backend, 3D design features.
+- Python Programming Intern at CodSoft (Jul - Aug 2024): To-Do List App, Calculator GUI, Password Generator, Contact Book.
+- Python Programming Intern at Oasis Infobyte (Aug - Sep 2024): Voice Assistant, Weather App, Chat Application, BMI Calculator.
+- Junior Maintenance Engineer at Adani Solar (Oct 2023 - Jun 2024): Solar plant equipment maintenance, preventive maintenance, troubleshooting.
+
+## Education
+- B.Tech in Computer Science and Engineering at Elitte College of Engineering (Oct 2023 - Apr 2026).
+- Diploma in Electronics and Telecommunication Engineering at Engineering Institute for Junior Executives (Sep 2020 - Sep 2023).
+
+## Projects
+1. Unified AI Business Operations Platform for Startups: Integrated AI workspace with CRM, RAG chatbot, multi-agent automation, intelligent billing.
+2. AI News Intelligence Platform: Automated news aggregation using Brave MCP and LLMs for content extraction, classification, and summarization.
+3. College Management Portal: CMS for academic functions and campus life, including attendance, assignments, and merchandise store.
+4. Krishi Sathi: Responsive webapp for farmers' AI assistance.
+5. FytTrk WebApp: GYM tracking webapp with install features.
+6. SMG Energy Website: Responsive website with interactive UI and backend.
+7. Stock Market Analysis: Python tool for real-time NSE data analysis.
+8. Gpt Jugad: Multi-model chatbot with free API key access.
+9. Invoice Generator: Python/Flask tool for customizable invoice templates and PDF generation.
+
+## Certifications
+- Full Stack with Django Backend
+- Data Science with Python by CodeWithHarry
+- LeetCode 100+ Problems Solved
+- Full-Stack Web Development Course Completion
+
+## Contact
+- Email: skrohanparveag@gmail.com
+- Phone: +918585059644
+- GitHub: https://github.com/DevRohan33
+- Website: https://rohanparveag.com

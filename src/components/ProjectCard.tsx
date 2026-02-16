@@ -42,6 +42,13 @@ const ProjectCard = ({
               onLoad={() => setImageLoaded(true)}
             />
           </div>
+          {title.toLowerCase().includes("(ongoing)") && (
+            <div className="absolute top-3 right-3 z-20">
+              <span className="px-3 py-1 text-[10px] font-bold uppercase tracking-wider bg-primary text-white rounded-full shadow-lg">
+                Ongoing
+              </span>
+            </div>
+          )}
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
             <div className="p-4 text-white">
               <h3 className="text-lg font-semibold">{title}</h3>

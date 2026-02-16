@@ -56,9 +56,23 @@ const About = () => {
             <h2 className="text-3xl md:text-4xl font-bold mb-6 animate-on-scroll fade-up-element">
               Passionate about creating <span className="text-primary">innovative solutions</span>
             </h2>
-            <p className="text-muted-foreground mb-6 leading-relaxed animate-on-scroll fade-up-element">
+            <p className="text-muted-foreground mb-8 leading-relaxed animate-on-scroll fade-up-element">
               {personalInfo.about}
             </p>
+
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-8 animate-on-scroll fade-up-element">
+              {[
+                { label: "Role", value: "AI Developer" },
+                { label: "Focus", value: "LLMs & RAG" },
+                { label: "Projects", value: "10+ Completed" },
+              ].map((stat, i) => (
+                <div key={i} className="p-4 rounded-xl bg-white border border-border shadow-sm text-center">
+                  <span className="block text-2xl font-bold text-primary">{stat.value}</span>
+                  <span className="text-xs text-muted-foreground uppercase tracking-wider font-medium">{stat.label}</span>
+                </div>
+              ))}
+            </div>
+
             <div className="grid grid-cols-2 gap-4 animate-on-scroll fade-up-element">
               <div className="flex flex-col">
                 <span className="text-sm text-muted-foreground">Email</span>

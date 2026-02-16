@@ -1,22 +1,31 @@
-
 import { skills } from "@/lib/data";
 import { useEffect, useRef } from "react";
+import { 
+  BrainCircuit, 
+  Code2, 
+  Globe, 
+  Database, 
+  BarChart3, 
+  Wrench 
+} from "lucide-react";
 
-const SkillCategory = ({ title, skills }: { title: string; skills: { name: string; level: number }[] }) => {
+const SkillCategory = ({ title, icon: Icon, skills }: { title: string; icon: any; skills: { name: string }[] }) => {
   return (
-    <div className="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-all duration-300">
-      <h3 className="text-xl font-semibold mb-4">{title}</h3>
-      <div className="space-y-4">
+    <div className="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-all duration-300 border border-border/40">
+      <div className="flex items-center gap-3 mb-6">
+        <div className="p-2 rounded-lg bg-primary/10 text-primary">
+          <Icon size={24} />
+        </div>
+        <h3 className="text-xl font-semibold">{title}</h3>
+      </div>
+      <div className="flex flex-wrap gap-2">
         {skills.map((skill, index) => (
-          <div key={index}>
-            <div className="flex justify-between mb-1">
-              <span className="text-sm font-medium">{skill.name}</span>
-              <span className="text-sm text-muted-foreground">{skill.level}%</span>
-            </div>
-            <div className="progress-bar">
-              <div className="progress-bar-fill" style={{ width: `${skill.level}%` }}></div>
-            </div>
-          </div>
+          <span
+            key={index}
+            className="px-3 py-1.5 rounded-full text-sm font-medium bg-secondary text-secondary-foreground hover:bg-primary hover:text-primary-foreground transition-colors duration-200 cursor-default"
+          >
+            {skill.name}
+          </span>
         ))}
       </div>
     </div>
@@ -26,36 +35,9 @@ const SkillCategory = ({ title, skills }: { title: string; skills: { name: strin
 const Skills = () => {
   const sectionRef = useRef<HTMLElement>(null);
 
+  // Removed scroll observation logic as progress bars are gone
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const progressBars = entry.target.querySelectorAll(".progress-bar-fill");
-            progressBars.forEach((bar) => {
-              const width = bar.getAttribute("style")?.match(/width: (\d+)%/)?.[1];
-              if (width) {
-                bar.setAttribute("style", "width: 0%");
-                setTimeout(() => {
-                  bar.setAttribute("style", `width: ${width}%`);
-                }, 100);
-              }
-            });
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
-      }
-    };
+    // Scroll observation logic removed as it's no longer needed for progress bars
   }, []);
 
   return (
@@ -74,12 +56,12 @@ const Skills = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <SkillCategory title="Programming Languages" skills={skills.languages} />
-          <SkillCategory title="Frontend Development" skills={skills.frontend} />
-          <SkillCategory title="Backend Development" skills={skills.backend} />
-          <SkillCategory title="Database Management" skills={skills.database} />
-          <SkillCategory title="Tools & Technologies" skills={skills.tools} />
-          <SkillCategory title="Other Skills" skills={skills.ai} />
+          <SkillCategory title="AI / ML & Generative AI" icon={BrainCircuit} skills={skills.ai_ml} />
+          <SkillCategory title="Programming Languages" icon={Code2} skills={skills.languages} />
+          <SkillCategory title="Web Frameworks & APIs" icon={Globe} skills={skills.web_frameworks} />
+          <SkillCategory title="Databases & Storage" icon={Database} skills={skills.databases} />
+          <SkillCategory title="Data Science & Analytics" icon={BarChart3} skills={skills.data_science} />
+          <SkillCategory title="Tools, DevOps & Cloud" icon={Wrench} skills={skills.tools_platforms} />
         </div>
       </div>
     </section>

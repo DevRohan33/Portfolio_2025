@@ -1,98 +1,91 @@
 
 import { personalInfo } from "@/lib/data";
-import { Github, Mail } from "lucide-react";
+import { Github, Mail, Phone } from "lucide-react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-foreground text-white py-12">
+    <footer className="bg-slate-950 text-white py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
           {/* Logo and Tagline */}
-          <div className="md:col-span-2">
-            <h2 className="text-2xl font-bold mb-4">SK Rohan Parveag</h2>
-            <p className="text-gray-300 mb-6 max-w-md">
-              Building elegant, scalable web applications and software solutions with a focus on user experience and performance.
+          <div className="md:col-span-5">
+            <h2 className="text-3xl font-black mb-6 tracking-tight">
+              SK ROHAN <span className="text-primary">PARVEAG</span>
+            </h2>
+            <p className="text-gray-400 mb-8 max-w-sm text-lg leading-relaxed">
+              Specializing in <span className="text-white font-medium">LLM Engineering</span>, <span className="text-white font-medium">Full-Stack Development</span>, and <span className="text-white font-medium">Scalable AI Systems</span>.
             </p>
-            <div className="flex space-x-4">
-              <a
-                href={`mailto:${personalInfo.email}`}
-                className="text-gray-300 hover:text-white transition-colors"
-              >
-                <Mail size={20} />
-              </a>
-              <a
-                href={personalInfo.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-300 hover:text-white transition-colors"
-              >
-                <Github size={20} />
-              </a>
+            <div className="flex space-x-5">
+              {[
+                { icon: Mail, href: `mailto:${personalInfo.email}` },
+                { icon: Github, href: personalInfo.github },
+              ].map((social, i) => (
+                <a
+                  key={i}
+                  href={social.href}
+                  className="w-10 h-10 rounded-full border border-gray-800 flex items-center justify-center text-gray-400 hover:text-white hover:border-primary hover:bg-primary/10 transition-all duration-300"
+                >
+                  <social.icon size={20} />
+                </a>
+              ))}
             </div>
           </div>
 
           {/* Quick Links */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
-            <ul className="space-y-2">
-              <li>
-                <a href="#home" className="text-gray-300 hover:text-white transition-colors">Home</a>
-              </li>
-              <li>
-                <a href="#about" className="text-gray-300 hover:text-white transition-colors">About</a>
-              </li>
-              <li>
-                <a href="#skills" className="text-gray-300 hover:text-white transition-colors">Skills</a>
-              </li>
-              <li>
-                <a href="#projects" className="text-gray-300 hover:text-white transition-colors">Projects</a>
-              </li>
-              <li>
-                <a href="#experience" className="text-gray-300 hover:text-white transition-colors">Experience</a>
-              </li>
-              <li>
-                <a href="#contact" className="text-gray-300 hover:text-white transition-colors">Contact</a>
-              </li>
+          <div className="md:col-span-3">
+            <h3 className="text-sm font-bold uppercase tracking-widest text-primary mb-6">Explore</h3>
+            <ul className="grid grid-cols-1 gap-4">
+              {["Home", "About", "Skills", "Projects", "Experience", "Contact"].map((link) => (
+                <li key={link}>
+                  <a href={`#${link.toLowerCase()}`} className="text-gray-400 hover:text-white transition-colors flex items-center gap-2 group">
+                    <span className="w-1.5 h-1.5 rounded-full bg-primary/40 group-hover:bg-primary transition-colors"></span>
+                    {link}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
 
           {/* Contact */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Contact</h3>
-            <ul className="space-y-2">
-              <li className="text-gray-300">
-                <span className="block">Email:</span>
-                <a href={`mailto:${personalInfo.email}`} className="hover:text-white transition-colors">
-                  {personalInfo.email}
-                </a>
+          <div className="md:col-span-4">
+            <h3 className="text-sm font-bold uppercase tracking-widest text-primary mb-6">Contact Details</h3>
+            <ul className="space-y-6">
+              <li className="flex gap-4">
+                <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0 border border-primary/20">
+                  <Mail size={18} className="text-primary" />
+                </div>
+                <div>
+                  <span className="block text-xs text-gray-500 uppercase font-bold tracking-tighter">Email Me</span>
+                  <a href={`mailto:${personalInfo.email}`} className="text-gray-300 hover:text-white transition-colors">
+                    {personalInfo.email}
+                  </a>
+                </div>
               </li>
-              <li className="text-gray-300">
-                <span className="block">Phone:</span>
-                <a href={`tel:${personalInfo.phone}`} className="hover:text-white transition-colors">
-                  {personalInfo.phone}
-                </a>
-              </li>
-              <li className="text-gray-300">
-                <span className="block">GitHub:</span>
-                <a 
-                  href={personalInfo.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-white transition-colors"
-                >
-                  DevRohan33
-                </a>
+              <li className="flex gap-4">
+                <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0 border border-primary/20">
+                  <Phone size={18} className="text-primary" />
+                </div>
+                <div>
+                  <span className="block text-xs text-gray-500 uppercase font-bold tracking-tighter">Call Me</span>
+                  <a href={`tel:${personalInfo.phone}`} className="text-gray-300 hover:text-white transition-colors">
+                    {personalInfo.phone}
+                  </a>
+                </div>
               </li>
             </ul>
           </div>
         </div>
 
-        <div className="border-t border-gray-700 mt-12 pt-8 text-center">
-          <p className="text-gray-400">
-            &copy; {currentYear} SK Rohan Parveag. All rights reserved.
+        <div className="border-t border-gray-900 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-gray-500 text-sm">
+            &copy; {currentYear} SK Rohan Parveag. Built with Passion & AI.
           </p>
+          <div className="flex gap-6 text-sm text-gray-500">
+            <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
+            <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
+          </div>
         </div>
       </div>
     </footer>
