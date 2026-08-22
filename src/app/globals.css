@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-ink text-text-primary antialiased;
+  }
+
+  ::selection {
+    background: #c6f24e;
+    color: #0b0c0e;
+  }
+
+  :focus-visible {
+    outline: 2px solid #c6f24e;
+    outline-offset: 2px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0b0c0e;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #2a2d33;
+    border-radius: 999px;
+  }
+}
+
+@layer components {
+  .label-eyebrow {
+    @apply font-mono text-label uppercase tracking-[0.06em] text-text-subtle;
+  }
+
+  .tech-tag {
+    @apply font-mono text-[11px] uppercase tracking-[0.06em] border border-hairline rounded-full px-3 py-1.5 text-text-muted;
+  }
+
+  .pill-primary {
+    @apply inline-flex items-center justify-center rounded-full bg-accent px-7 py-3.5 text-sm font-medium text-ink transition-all duration-150 hover:brightness-110;
+  }
+
+  .pill-secondary {
+    @apply inline-flex items-center justify-center rounded-full border border-hairline px-7 py-3.5 text-sm font-medium text-text-primary transition-all duration-150 hover:border-white/30;
+  }
+
+  .skip-link {
+    @apply sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:rounded-full focus:bg-accent focus:px-4 focus:py-2 focus:text-ink focus:text-sm focus:font-medium;
+  }
+}
+
+@layer utilities {
+  .reveal {
+    opacity: 0;
+  }
+  .reveal.in-view {
+    animation: rise-fade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal.in-view {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
