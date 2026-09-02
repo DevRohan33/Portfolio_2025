@@ -27,6 +27,7 @@ SK Rohan Parveag is an AI Systems Engineer based in Kolkata, West Bengal, India.
 - **Portfolio:** https://rohanparveag.online
 - **LinkedIn:** https://www.linkedin.com/in/skrohanparveag/
 - **GitHub:** https://github.com/DevRohan33
+- **LeetCode:** https://leetcode.com/u/rp-/ (300+ problems solved)
 - **Current employer:** Design Intelligence LLP (remote, full-time)
 - **LinkedIn reach:** ~1,400 followers, 500+ connections
 
@@ -249,7 +250,7 @@ Practical knowledge in electronics, circuits, and embedded systems. Developed pr
 - Full Stack with Django Backend
 - Data Science with Python (CodeWithHarry)
 - Full-Stack Web Development course completion
-- 100+ problems solved on LeetCode
+- 300+ problems solved on LeetCode (profile: https://leetcode.com/u/rp-/)
 
 ---
 

@@ -5,6 +5,7 @@ const rows = [
   { label: "EMAIL", value: personalInfo.email, href: `mailto:${personalInfo.email}` },
   { label: "LINKEDIN", value: personalInfo.linkedinHandle, href: personalInfo.linkedin },
   { label: "GITHUB", value: personalInfo.githubHandle, href: personalInfo.github },
+  { label: "LEETCODE", value: personalInfo.leetcodeHandle, href: personalInfo.leetcode },
 ];
 
 export default function ContactCTA() {

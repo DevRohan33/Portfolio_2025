@@ -8,6 +8,8 @@ export const personalInfo = {
   githubHandle: "/DevRohan33",
   linkedin: "https://linkedin.com/in/skrohanparveag",
   linkedinHandle: "/in/skrohanparveag",
+  leetcode: "https://leetcode.com/u/rp-/",
+  leetcodeHandle: "/u/rp-",
   heroLines: ["I build AI systems", "that survive contact", "with production."],
   heroSub:
     "RAG and agent pipelines, the data infrastructure that feeds them, and the deployments that keep them running. Currently backend and AI at Design Intelligence.",
