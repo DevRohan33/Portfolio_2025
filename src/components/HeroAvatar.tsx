@@ -36,6 +36,9 @@ export default function HeroAvatar() {
 
     const preload = async () => {
       const images: HTMLImageElement[] = new Array(FRAME_COUNT);
+      // Expose the array immediately so the poster frame can draw before the
+      // rest finish loading; draw() skips frames that aren't complete yet.
+      framesRef.current = images;
       const load = (i: number) =>
         new Promise<void>((resolve) => {
           const img = new Image();
@@ -59,10 +62,9 @@ export default function HeroAvatar() {
         }
       });
       await Promise.all(workers);
-      framesRef.current = images;
+      if (!cancelled) draw(currentFrameRef.current);
     };
 
-    framesRef.current = [];
     preload();
 
     if (prefersReducedMotion) {

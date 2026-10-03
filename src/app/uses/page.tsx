@@ -1,36 +1,58 @@
 import type { Metadata } from "next";
 import { usesData } from "@/content/site";
 import Reveal from "@/components/Reveal";
+import HandNote from "@/components/HandNote";
+import JsonLd from "@/components/JsonLd";
+import { PERSON_ID, WEBSITE_ID, abs, breadcrumbs, graph, pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "Uses",
-  description: "The full stack — languages, AI tooling, infrastructure, and how it all runs.",
-};
+  path: "/uses",
+  description:
+    "The full stack - languages, AI tooling, infrastructure, and how it all runs.",
+});
+
+const jsonLd = graph(
+  {
+    "@type": "WebPage",
+    "@id": abs("/uses#page"),
+    url: abs("/uses"),
+    name: "Uses - the stack behind SK Rohan Parveag's products",
+    isPartOf: { "@id": WEBSITE_ID },
+    author: { "@id": PERSON_ID },
+    about: { "@id": PERSON_ID },
+  },
+  breadcrumbs([{ name: "Uses", path: "/uses" }]),
+);
 
 const groups = [
   { title: "STACK", rows: usesData.stack },
-  { title: "INFRASTRUCTURE", rows: usesData.infrastructure },
+  { title: "FIREBASE", rows: usesData.firebase },
   { title: "DATA", rows: usesData.data },
+  { title: "INFRASTRUCTURE", rows: usesData.infrastructure },
   { title: "OPERATIONS", rows: usesData.operations },
-  { title: "TOOLING", rows: usesData.tooling },
+  { title: "SEO & ANALYTICS", rows: usesData.seo },
+  { title: "AI TOOLING", rows: usesData.tooling },
 ];
 
 export default function UsesPage() {
   return (
     <div className="pt-40 pb-24 md:pb-[120px]">
+      <JsonLd data={jsonLd} />
       <div className="max-w-container mx-auto px-5 lg:px-8">
         <Reveal>
           <p className="label-eyebrow mb-4">
-            <span className="text-accent">05</span> — HOW I SHIP
+            <span className="text-accent">05</span> - HOW I SHIP
           </p>
-          <h1 className="text-h1 font-semibold tracking-tight max-w-2xl">
+          <h1 className="font-serif text-[48px] md:text-[72px] font-medium tracking-[-0.03em] leading-[1.0] max-w-3xl">
             The stack behind the products.
           </h1>
-          <p className="mt-4 text-[15px] text-text-muted max-w-[52ch]">
-            Everything I actually build with, day to day — languages and frameworks first,
-            then the infrastructure that runs it. Deployment is the last mile of system
-            design here, not the headline.
+          <p className="mt-5 font-serif text-[19px] md:text-[20px] leading-relaxed text-text-muted max-w-[54ch]">
+            Everything I actually build with, day to day - languages and
+            frameworks first, then the infrastructure that runs it. Deployment
+            is the last mile of system design here, not the headline.
           </p>
+          <HandNote className="mt-5">the boring bits that keep everything running ↓</HandNote>
         </Reveal>
 
         <div className="mt-14 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -40,7 +62,9 @@ export default function UsesPage() {
               delay={i * 60}
               className="border border-hairline rounded-card p-6"
             >
-              <p className="font-mono text-label uppercase text-accent mb-5">{group.title}</p>
+              <p className="font-mono text-label uppercase text-accent mb-5">
+                {group.title}
+              </p>
               <div className="divide-y divide-hairline">
                 {group.rows.map((row) => (
                   <div
@@ -61,7 +85,9 @@ export default function UsesPage() {
         <Reveal className="mt-8 border border-hairline rounded-card px-6 py-6 flex flex-wrap items-center justify-between gap-4">
           <div>
             <p className="label-eyebrow">RUNNING COST</p>
-            <p className="mt-1 text-[14px] text-text-muted">Four products, one box, one bill.</p>
+            <p className="mt-1 text-[14px] text-text-muted">
+              Four products, one box, one bill.
+            </p>
           </div>
           <p className="text-[32px] font-semibold tracking-tight">
             One VPS, shared across everything
@@ -69,7 +95,8 @@ export default function UsesPage() {
         </Reveal>
 
         <Reveal className="mt-4 label-eyebrow text-text-subtle normal-case tracking-normal font-mono text-[12px]">
-          Exact monthly figure kept off this page for now — ask directly and I&apos;ll tell you.
+          Exact monthly figure kept off this page for now - ask directly and
+          I&apos;ll tell you.
         </Reveal>
       </div>
     </div>

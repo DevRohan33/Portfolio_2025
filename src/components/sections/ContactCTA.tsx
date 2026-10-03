@@ -1,5 +1,6 @@
 import { personalInfo } from "@/content/site";
 import Reveal from "@/components/Reveal";
+import HandNote from "@/components/HandNote";
 
 const rows = [
   { label: "EMAIL", value: personalInfo.email, href: `mailto:${personalInfo.email}` },
@@ -13,12 +14,10 @@ export default function ContactCTA() {
     <section id="contact" className="bg-ink py-24 md:py-[120px] border-t border-hairline">
       <div className="max-w-container mx-auto px-5 lg:px-8">
         <Reveal>
-          <h2 className="text-[36px] md:text-[64px] font-semibold tracking-tight leading-[1.05] max-w-xl">
+          <h2 className="font-serif text-[40px] md:text-[72px] font-medium tracking-[-0.025em] leading-[1.02] max-w-2xl">
             Building something that has to work?
           </h2>
-          <p className="mt-4 text-[17px] text-text-muted">
-            I reply to everything. Usually within a day.
-          </p>
+          <HandNote className="mt-5">I reply to everything — usually within a day.</HandNote>
         </Reveal>
 
         <div className="mt-14 divide-y divide-hairline border-y border-hairline">

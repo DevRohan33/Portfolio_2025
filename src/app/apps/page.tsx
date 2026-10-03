@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { appsStoreData } from "@/content/site";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "App Store",
-  description: "Small apps and tools I've shipped.",
-};
+  description: "Small apps and tools built and shipped by SK Rohan Parveag.",
+  path: "/apps",
+});
 
 export default function AppStorePage() {
   return (
@@ -13,8 +15,8 @@ export default function AppStorePage() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-10 gap-4">
           <div>
-            <h1 className="text-4xl font-bold tracking-tight">App Store</h1>
-            <p className="text-gray-500 mt-2">Discover my crafted applications and tools.</p>
+            <h1 className="font-serif text-[44px] md:text-[56px] font-medium tracking-[-0.02em] leading-none">App Store</h1>
+            <p className="mt-3 font-hand text-[26px] font-bold text-[#5c7a12] -rotate-1 origin-left">small apps I built and shipped ↓</p>
           </div>
         </div>
 

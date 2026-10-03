@@ -13,7 +13,18 @@ const navItems = [
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+  // Notes, project and app pages use a light theme; the header has to flip with them.
+  const onPaper =
+    pathname.startsWith("/notes") || pathname.startsWith("/apps") || /^\/work\/.+/.test(pathname);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   useEffect(() => {
     setOpen(false);
@@ -28,11 +39,23 @@ export default function Header() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50">
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-200 ${
+          scrolled
+            ? onPaper
+              ? "bg-paper/85 backdrop-blur-md border-b border-paper-text/10"
+              : "bg-ink/80 backdrop-blur-md border-b border-hairline"
+            : "border-b border-transparent"
+        }`}
+      >
         <div className="max-w-container mx-auto flex items-center justify-between px-5 lg:px-8 py-5">
           <Link href="/" className="flex items-center gap-2 group">
             <span className="w-1.5 h-1.5 bg-accent" />
-            <span className="font-semibold tracking-tight text-[18px] text-text-primary">
+            <span
+              className={`font-semibold tracking-tight text-[18px] ${
+                onPaper ? "text-paper-text" : "text-text-primary"
+              }`}
+            >
               ROHAN
             </span>
           </Link>
@@ -42,19 +65,28 @@ export default function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="label-eyebrow hover:text-text-primary transition-colors"
+                className={`label-eyebrow transition-colors ${
+                  onPaper ? "text-paper-text/55 hover:text-paper-text" : "hover:text-text-primary"
+                } ${pathname.startsWith(item.href) ? (onPaper ? "!text-paper-text" : "!text-text-primary") : ""}`}
               >
                 {item.label.toUpperCase()}
               </Link>
             ))}
-            <Link href="/#contact" className="pill-secondary !py-2.5 !px-5 text-xs">
+            <Link
+              href="/#contact"
+              className={`pill-secondary !py-2.5 !px-5 text-xs ${
+                onPaper ? "!text-paper-text !border-paper-text/20 hover:!border-paper-text/50" : ""
+              }`}
+            >
               CONTACT
             </Link>
           </nav>
 
           <button
             onClick={() => setOpen(true)}
-            className="md:hidden label-eyebrow border border-hairline rounded-full px-4 py-2"
+            className={`md:hidden label-eyebrow border rounded-full px-4 py-2 ${
+              onPaper ? "border-paper-text/20 text-paper-text/70" : "border-hairline"
+            }`}
             aria-label="Open menu"
           >
             MENU

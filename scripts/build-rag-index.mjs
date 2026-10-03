@@ -1,14 +1,20 @@
-// Builds src/server/rag/knowledge-index.json from rohan_knowledge.md.
+// Builds src/server/rag/knowledge-index.json for the portfolio assistant.
 //
-// The source doc's own frontmatter specifies the ingestion contract: chunk on
-// `##`/`###` boundaries, ~400-600 tokens per chunk, every section self-contained.
-// Section 12 (chatbot behaviour instructions) and 13 (maintenance log) are
-// explicitly marked as directives/meta rather than retrievable facts, so they're
-// excluded from the index — section 12 is hand-transcribed into
-// src/server/rag/systemPrompt.ts instead.
+// Two sources:
+//   1. rohan_knowledge.md — chunked on its own `##`/`###` boundaries. Section 12
+//      (chatbot behaviour instructions) and 13 (maintenance log) are directives
+//      and meta rather than retrievable facts, so they're excluded; section 12 is
+//      hand-transcribed into src/server/rag/systemPrompt.ts instead.
+//   2. The site's own content — every case study and every note — so the
+//      assistant can answer detailed questions about a project and link to the
+//      page the answer came from.
 //
-// Run manually with a valid OPENAI_API_KEY in .env: `npm run build:rag`
-// Re-run whenever rohan_knowledge.md changes.
+// Every chunk carries `title` + `url`; the chat UI shows them as source links.
+//
+// Run with a valid OPENAI_API_KEY in .env: `npm run build:rag`
+// Re-run whenever rohan_knowledge.md, src/content/caseStudies.ts or
+// src/content/notes.ts changes. (The npm script runs Node with
+// --experimental-strip-types so it can import those .ts files directly.)
 
 import fs from "fs";
 import path from "path";
@@ -22,16 +28,31 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const SOURCE = path.join(__dirname, "../rohan_knowledge.md");
 const OUT_DIR = path.join(__dirname, "../src/server/rag");
 const OUT_FILE = path.join(OUT_DIR, "knowledge-index.json");
+const MODEL = "text-embedding-3-small";
 
-const EXCLUDED_SECTIONS = [
-  "12. Chatbot behaviour instructions",
-  "13. Maintenance log",
-];
+const EXCLUDED_SECTIONS = ["12. Chatbot behaviour instructions", "13. Maintenance log"];
 
 const MAX_CHUNK_WORDS = 260; // ~350-400 tokens; sections above this split on ###
 
+// Which page a knowledge-base section is best linked to, matched on its heading.
+const KNOWLEDGE_URLS = [
+  [/TechPluse/i, "/work/techpluse", "TechPluse"],
+  [/RYBO|MyLedger/i, "/work/rybo", "RYBO"],
+  [/Abhyas/i, "/work/abhyas", "Abhyas Voice Coach"],
+  [/Job Radar/i, "/work/job-radar", "Job Radar"],
+  [/Business Operations Platform/i, "/work/ai-workspace", "AI Workspace"],
+  [/Technical work at Design Intelligence/i, "/work/agentic-assistant", "Work at Design Intelligence"],
+  [/Skills/i, "/uses", "Stack & skills"],
+  [/Other projects/i, "/work", "All work"],
+];
+
+function knowledgeSource(heading) {
+  const hit = KNOWLEDGE_URLS.find(([re]) => re.test(heading));
+  return hit ? { url: hit[1], title: hit[2] } : { url: "/about", title: "About Rohan" };
+}
+
 function stripFrontmatter(md) {
-  return md.replace(/^---\n[\s\S]*?\n---\n/, "");
+  return md.replace(/\r\n/g, "\n").replace(/^---\n[\s\S]*?\n---\n/, "");
 }
 
 function splitOnHeading(md, level) {
@@ -56,9 +77,8 @@ function wordCount(s) {
   return s.split(/\s+/).filter(Boolean).length;
 }
 
-function buildChunks(md) {
-  const clean = stripFrontmatter(md);
-  const top = splitOnHeading(clean, 2); // ## sections
+function knowledgeChunks(md) {
+  const top = splitOnHeading(stripFrontmatter(md), 2); // ## sections
   const chunks = [];
 
   for (const section of top) {
@@ -73,14 +93,70 @@ function buildChunks(md) {
         chunks.push({ heading: section.heading, content: intro });
       }
       for (const sub of subs) {
-        chunks.push({ heading: `${section.heading} — ${sub.heading}`, content: sub.content });
+        chunks.push({ heading: `${section.heading} - ${sub.heading}`, content: sub.content });
       }
     } else {
       chunks.push({ heading: section.heading, content: section.content });
     }
   }
 
-  return chunks.filter((c) => wordCount(c.content) > 8);
+  return chunks
+    .filter((c) => wordCount(c.content) > 8)
+    .map((c) => ({ ...c, ...knowledgeSource(c.heading) }));
+}
+
+async function siteChunks() {
+  const { caseStudies } = await import("../src/content/caseStudies.ts");
+  const { notes } = await import("../src/content/notes.ts");
+  const chunks = [];
+
+  for (const s of Object.values(caseStudies)) {
+    const url = `/work/${s.slug}`;
+    const links = (s.links ?? []).map((l) => `${l.label}: ${l.href}`).join(", ");
+    chunks.push({
+      heading: `Project: ${s.name} — overview`,
+      title: s.name,
+      url,
+      content: [
+        `${s.name} (project page: ${url}). ${s.summary}`,
+        `Role: ${s.role}. Stack: ${s.stack}. Timeline: ${s.timeline}. Status: ${s.status}.`,
+        links && `Links: ${links}.`,
+        s.notice && `Note: ${s.notice}`,
+        ...s.problem,
+        `Constraints: ${s.constraints.join("; ")}.`,
+        `Results: ${s.results.map((r) => `${r.value} ${r.caption}`).join("; ")}.`,
+      ]
+        .filter(Boolean)
+        .join("\n\n"),
+    });
+    chunks.push({
+      heading: `Project: ${s.name} — architecture and decisions`,
+      title: s.name,
+      url,
+      content: [
+        `How ${s.name} is built. ${s.architecture}`,
+        ...s.architectureBullets.map((b) => `- ${b}`),
+        ...s.decisions.map((d) => `Decision — ${d.title}: ${d.body}`),
+        `What Rohan would do differently: ${s.whatIdRedo}`,
+      ].join("\n"),
+    });
+  }
+
+  for (const n of notes) {
+    const url = `/notes/${n.slug}`;
+    n.body.split(/\n(?=## )/).forEach((section, i) => {
+      const lines = section.split("\n");
+      const heading = i === 0 ? "introduction" : lines[0].replace(/^##\s+/, "");
+      const text = i === 0 ? `${n.summary}\n\n${section}` : lines.slice(1).join("\n").trim();
+      chunks.push({
+        heading: `Note: ${n.title} — ${heading}`,
+        title: n.title,
+        url,
+        content: `From Rohan's note "${n.title}" (${n.date}, ${url}).\n\n${text}`,
+      });
+    });
+  }
+  return chunks;
 }
 
 async function main() {
@@ -94,30 +170,34 @@ async function main() {
     process.exit(1);
   }
 
-  const md = fs.readFileSync(SOURCE, "utf8");
-  const chunks = buildChunks(md);
-  console.log(`Built ${chunks.length} chunks from rohan_knowledge.md`);
+  const knowledge = knowledgeChunks(fs.readFileSync(SOURCE, "utf8"));
+  const site = await siteChunks();
+  const chunks = [...knowledge, ...site];
+  console.log(
+    `Built ${chunks.length} chunks (${knowledge.length} from rohan_knowledge.md, ${site.length} from case studies and notes)`,
+  );
 
+  // One batched request instead of one per chunk.
   const openai = new OpenAI({ apiKey });
-  const indexed = [];
-  for (const [i, chunk] of chunks.entries()) {
-    const res = await openai.embeddings.create({
-      model: "text-embedding-3-small",
-      input: `${chunk.heading}\n\n${chunk.content}`,
-    });
-    indexed.push({
-      id: i,
-      heading: chunk.heading,
-      content: chunk.content,
-      embedding: res.data[0].embedding,
-    });
-    console.log(`  [${i + 1}/${chunks.length}] ${chunk.heading}`);
-  }
+  const res = await openai.embeddings.create({
+    model: MODEL,
+    input: chunks.map((c) => `${c.heading}\n\n${c.content}`),
+  });
+
+  const indexed = chunks.map((chunk, i) => ({
+    id: i,
+    heading: chunk.heading,
+    title: chunk.title,
+    url: chunk.url,
+    content: chunk.content,
+    embedding: res.data[i].embedding,
+  }));
+  for (const c of indexed) console.log(`  [${c.id + 1}/${indexed.length}] ${c.heading}  ->  ${c.url}`);
 
   if (!fs.existsSync(OUT_DIR)) fs.mkdirSync(OUT_DIR, { recursive: true });
   fs.writeFileSync(
     OUT_FILE,
-    JSON.stringify({ builtAt: new Date().toISOString(), model: "text-embedding-3-small", chunks: indexed })
+    JSON.stringify({ builtAt: new Date().toISOString(), model: MODEL, chunks: indexed }),
   );
   console.log(`Wrote ${indexed.length} chunks to ${OUT_FILE}`);
 }

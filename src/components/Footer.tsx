@@ -18,10 +18,17 @@ export default function Footer() {
         <div>
           <div className="flex items-center gap-2 mb-2">
             <span className="w-1.5 h-1.5 bg-accent" />
-            <span className="font-semibold tracking-tight text-[18px]">ROHAN</span>
+            <span className="font-semibold tracking-tight text-[18px]">
+              ROHAN
+            </span>
           </div>
-          <p className="label-eyebrow">AI Systems Engineer — {personalInfo.location}</p>
+          <p className="label-eyebrow">
+            AI Systems Engineer - {personalInfo.location}
+          </p>
         </div>
+        <p className="font-hand font-bold text-[24px] text-text-muted -rotate-2">
+          thanks for scrolling all the way down ✌
+        </p>
       </div>
 
       <div className="relative max-w-container mx-auto px-5 lg:px-8 pb-8 flex flex-col sm:flex-row justify-between gap-2 font-mono text-[12px] text-text-subtle">

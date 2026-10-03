@@ -1,24 +1,53 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import { flagshipProjects, tier2Projects, tier3Projects } from "@/content/site";
 import FlagshipCard from "@/components/FlagshipCard";
 import Reveal from "@/components/Reveal";
+import JsonLd from "@/components/JsonLd";
+import { PERSON_ID, WEBSITE_ID, abs, breadcrumbs, graph, pageMeta } from "@/lib/seo";
+import HandNote from "@/components/HandNote";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "Work",
-  description: "Production systems, live products, and supporting projects.",
-};
+  description:
+    "Production systems, live products and open-source projects by SK Rohan Parveag: RYBO, an agentic engineering assistant, a real-time voice coach, data pipelines and more.",
+  path: "/work",
+});
+
+const jsonLd = graph(
+  {
+    "@type": "CollectionPage",
+    "@id": abs("/work#page"),
+    url: abs("/work"),
+    name: "Work - SK Rohan Parveag",
+    isPartOf: { "@id": WEBSITE_ID },
+    author: { "@id": PERSON_ID },
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: flagshipProjects.map((p, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        url: abs(`/work/${p.slug}`),
+        name: p.name,
+      })),
+    },
+  },
+  breadcrumbs([{ name: "Work", path: "/work" }]),
+);
 
 export default function WorkPage() {
   return (
     <div className="pt-40 pb-24 md:pb-[120px]">
+      <JsonLd data={jsonLd} />
       <div className="max-w-container mx-auto px-5 lg:px-8">
         <Reveal>
           <p className="label-eyebrow mb-4">WORK</p>
-          <h1 className="text-h1 font-semibold tracking-tight max-w-2xl">
-            Systems I&apos;ve built and run.
+          <h1 className="font-serif text-[48px] md:text-[72px] font-medium tracking-[-0.03em] leading-[1.0] max-w-3xl">
+            Systems I&apos;ve built <em className="italic text-accent">and run.</em>
           </h1>
+          <HandNote className="mt-5">every one of these ran with real users or real data ↓</HandNote>
         </Reveal>
 
         <div className="mt-16">
@@ -43,9 +72,18 @@ export default function WorkPage() {
               <Reveal
                 key={project.title}
                 delay={i * 60}
-                className="border border-hairline rounded-card p-6 hover:border-white/20 transition-colors"
+                className="group border border-hairline rounded-card p-6 hover:border-white/20 transition-colors"
               >
-                <h3 className="text-[18px] font-medium">{project.title}</h3>
+                <div className="relative aspect-[16/9] mb-5 rounded-control overflow-hidden border border-hairline bg-surface-raised">
+                  <Image
+                    src={project.image}
+                    alt={`${project.title} preview`}
+                    fill
+                    sizes="(min-width: 768px) 50vw, 100vw"
+                    className="object-cover object-top opacity-85 group-hover:opacity-100 transition-opacity"
+                  />
+                </div>
+                <h3 className="font-serif text-[22px] font-medium">{project.title}</h3>
                 <p className="mt-2 text-[14px] text-text-muted">{project.description}</p>
                 <div className="mt-4 flex flex-wrap gap-2">
                   {project.tags.map((tag) => (

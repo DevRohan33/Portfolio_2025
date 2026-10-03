@@ -3,11 +3,16 @@ import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import type { FlagshipProject } from "@/content/site";
 
-const statusStyle: Record<string, string> = {
+const statusStyle: Record<FlagshipProject["status"], string> = {
   LIVE: "text-accent",
   SHIPPED: "text-accent",
+  "OPEN SOURCE": "text-accent",
+  PAUSED: "text-text-muted",
   BUILDING: "text-text-subtle",
 };
+
+const hasDot = (status: FlagshipProject["status"]) =>
+  status === "LIVE" || status === "SHIPPED" || status === "OPEN SOURCE";
 
 export default function FlagshipCard({ project }: { project: FlagshipProject }) {
   return (
@@ -18,9 +23,7 @@ export default function FlagshipCard({ project }: { project: FlagshipProject }) 
       <div className="flex items-start justify-between">
         <span className="label-eyebrow">{project.category.toUpperCase()}</span>
         <span className={`font-mono text-[11px] uppercase tracking-[0.06em] flex items-center gap-1.5 ${statusStyle[project.status]}`}>
-          {(project.status === "LIVE" || project.status === "SHIPPED") && (
-            <span className="w-1.5 h-1.5 rounded-full bg-accent" />
-          )}
+          {hasDot(project.status) && <span className="w-1.5 h-1.5 rounded-full bg-accent" />}
           {project.status}
         </span>
       </div>
@@ -32,7 +35,7 @@ export default function FlagshipCard({ project }: { project: FlagshipProject }) 
             alt={`${project.name} preview`}
             fill
             sizes="(min-width: 768px) 50vw, 100vw"
-            className="object-cover opacity-80 group-hover:opacity-100 transition-opacity"
+            className="object-cover object-top opacity-85 group-hover:opacity-100 group-hover:scale-[1.02] transition-all duration-300"
           />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center">
@@ -43,12 +46,12 @@ export default function FlagshipCard({ project }: { project: FlagshipProject }) 
 
       <div>
         <div className="flex items-end justify-between gap-4">
-          <h3 className="text-[22px] md:text-[28px] font-semibold tracking-tight">{project.name}</h3>
+          <h3 className="font-serif text-[26px] md:text-[32px] font-medium tracking-[-0.015em] leading-tight">{project.name}</h3>
           <span className="w-10 h-10 rounded-full border border-hairline flex items-center justify-center shrink-0 transition-all group-hover:bg-accent group-hover:text-ink group-hover:border-accent">
             <ArrowUpRight size={18} />
           </span>
         </div>
-        <p className="mt-2 text-[15px] text-text-muted max-w-[44ch]">{project.summary}</p>
+        <p className="mt-2 font-serif text-[17px] leading-relaxed text-text-muted max-w-[46ch]">{project.summary}</p>
         <div className="mt-4 flex flex-wrap gap-2">
           {project.tags.map((tag) => (
             <span key={tag} className="tech-tag">

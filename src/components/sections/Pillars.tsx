@@ -7,7 +7,7 @@ export default function Pillars() {
       <div className="max-w-container mx-auto px-5 lg:px-8">
         <Reveal>
           <p className="label-eyebrow mb-12">
-            <span className="text-accent">02</span> — WHAT I ACTUALLY DO
+            <span className="text-accent">02</span> - WHAT I ACTUALLY DO
           </p>
         </Reveal>
 
@@ -18,10 +18,12 @@ export default function Pillars() {
                 <span className="md:col-span-1 font-mono text-[13px] text-accent group-hover:text-text-primary transition-colors">
                   {pillar.number}
                 </span>
-                <h3 className="md:col-span-4 text-[24px] md:text-[32px] font-semibold tracking-tight">
+                <h3 className="md:col-span-4 font-serif text-[28px] md:text-[38px] font-medium tracking-[-0.02em]">
                   {pillar.title}
                 </h3>
-                <p className="md:col-span-3 text-[15px] text-text-muted">{pillar.tagline}</p>
+                <p className="md:col-span-3 text-[15px] text-text-muted">
+                  {pillar.tagline}
+                </p>
                 <div className="md:col-span-4 flex flex-wrap gap-2 md:justify-end">
                   {pillar.tags.map((tag) => (
                     <span key={tag} className="tech-tag">

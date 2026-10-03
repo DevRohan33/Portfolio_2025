@@ -29,6 +29,8 @@ export default {
         sans: ["var(--font-inter-tight)", "Inter", "sans-serif"],
         body: ["var(--font-inter)", "Inter", "sans-serif"],
         mono: ["var(--font-jetbrains-mono)", "monospace"],
+        serif: ["var(--font-newsreader)", "Georgia", "serif"],
+        hand: ["var(--font-caveat)", "cursive"],
       },
       fontSize: {
         display: ["5rem", { lineHeight: "1.05", letterSpacing: "-0.04em" }],

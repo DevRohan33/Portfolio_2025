@@ -14,7 +14,7 @@ dist-ssr
 .next
 next-env.d.ts
 
-# raw hero animation source frames (132MB) — processed output lives in
+# raw hero animation source frames (132MB) - processed output lives in
 # public/hero-frames/ and is what the site actually uses. Keep the source
 # frames locally if you want to reprocess with different keying settings.
 /public/hero/

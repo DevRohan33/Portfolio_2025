@@ -3,6 +3,7 @@ import { personalInfo } from "@/content/site";
 import Reveal from "@/components/Reveal";
 import ShaderBackground from "@/components/ShaderBackground";
 import HeroAvatar from "@/components/HeroAvatar";
+import HandNote from "@/components/HandNote";
 
 export default function Hero() {
   return (
@@ -30,29 +31,43 @@ export default function Hero() {
           <Reveal>
             <p className="label-eyebrow flex items-center gap-3">
               <span className="w-1.5 h-1.5 rounded-full bg-accent" />
-              AI SYSTEMS ENGINEER — {personalInfo.location.toUpperCase()}
+              AI SYSTEMS ENGINEER - {personalInfo.location.toUpperCase()}
             </p>
           </Reveal>
-          <h1 className="text-[12vw] leading-[1.02] tracking-[-0.04em] font-semibold sm:text-[56px] md:text-[72px] max-w-4xl">
-            {personalInfo.heroLines.map((line, i) => (
-              <Reveal key={line} as="span" delay={i * 80} className="block">
-                {line}
-              </Reveal>
-            ))}
+          <h1 className="font-serif text-[13vw] leading-[1.0] tracking-[-0.03em] font-medium sm:text-[60px] md:text-[80px] max-w-4xl">
+            {personalInfo.heroLines.map((line, i) => {
+              const last = i === personalInfo.heroLines.length - 1;
+              const words = line.split(" ");
+              return (
+                <Reveal key={line} as="span" delay={i * 80} className="block">
+                  {last ? (
+                    <>
+                      {words.slice(0, -1).join(" ")}{" "}
+                      <em className="italic text-accent">{words[words.length - 1]}</em>
+                    </>
+                  ) : (
+                    line
+                  )}
+                </Reveal>
+              );
+            })}
           </h1>
           <Reveal delay={280}>
-            <p className="font-body max-w-[52ch] text-base md:text-lg text-text-muted">
+            <p className="font-serif max-w-[50ch] text-[18px] md:text-[21px] leading-relaxed text-text-muted">
               {personalInfo.heroSub}
             </p>
           </Reveal>
           <Reveal delay={360}>
-            <div className="flex flex-wrap gap-4 mt-2">
+            <div className="flex flex-wrap items-center gap-4 mt-2">
               <Link href="/work" className="pill-primary">
                 See the work
               </Link>
               <Link href="/notes" className="pill-secondary">
                 Read the notes
               </Link>
+              <HandNote as="span" className="hidden sm:inline ml-2">
+                ← start here
+              </HandNote>
             </div>
           </Reveal>
         </div>
