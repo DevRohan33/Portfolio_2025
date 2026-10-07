@@ -7,7 +7,7 @@ export const SITE_NAME = "SK Rohan Parveag";
 
 /**
  * When the site's content last meaningfully changed. Used as lastModified in
- * the sitemap — a real date tells crawlers more than "now" on every deploy.
+ * the sitemap- a real date tells crawlers more than "now" on every deploy.
  * Bump it when you update projects or pages.
  */
 export const SITE_UPDATED = "2026-10-04";
@@ -17,10 +17,12 @@ export const PERSON_ID = `${SITE_URL}/#person`;
 export const WEBSITE_ID = `${SITE_URL}/#website`;
 export const BLOG_ID = `${SITE_URL}/notes#blog`;
 
-export const abs = (path: string) => (path.startsWith("http") ? path : `${SITE_URL}${path}`);
+export const abs = (path: string) =>
+  path.startsWith("http") ? path : `${SITE_URL}${path}`;
 
 /** "2026-03" → "2026-03-01", a valid ISO date for schema.org and the sitemap. */
-export const isoMonth = (date: string) => (date.length === 7 ? `${date}-01` : date);
+export const isoMonth = (date: string) =>
+  date.length === 7 ? `${date}-01` : date;
 
 export function breadcrumbs(items: { name: string; path: string }[]) {
   return {
@@ -48,12 +50,23 @@ export function personNode() {
     image: abs("/image/profil.jpg"),
     email: `mailto:${personalInfo.email}`,
     sameAs: [personalInfo.github, personalInfo.linkedin, personalInfo.leetcode],
-    address: { "@type": "PostalAddress", addressLocality: "Kolkata", addressRegion: "West Bengal", addressCountry: "IN" },
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Kolkata",
+      addressRegion: "West Bengal",
+      addressCountry: "IN",
+    },
     worksFor: { "@type": "Organization", name: "Design Intelligence LLP" },
     alumniOf: [
       { "@type": "CollegeOrUniversity", name: "Elitte College of Engineering" },
-      { "@type": "CollegeOrUniversity", name: "Maulana Abul Kalam Azad University of Technology" },
-      { "@type": "EducationalOrganization", name: education.diplomaInstitution },
+      {
+        "@type": "CollegeOrUniversity",
+        name: "Maulana Abul Kalam Azad University of Technology",
+      },
+      {
+        "@type": "EducationalOrganization",
+        name: education.diplomaInstitution,
+      },
     ],
     knowsAbout: [
       "Retrieval-augmented generation",
@@ -81,7 +94,7 @@ export function websiteNode() {
     url: SITE_URL,
     name: SITE_NAME,
     description:
-      "Portfolio of SK Rohan Parveag — AI systems, backend and data engineering, with case studies and technical notes.",
+      "Portfolio of SK Rohan Parveag- AI systems, backend and data engineering, with case studies and technical notes.",
     inLanguage: "en",
     author: { "@id": PERSON_ID },
     publisher: { "@id": PERSON_ID },
@@ -89,12 +102,17 @@ export function websiteNode() {
 }
 
 /** One `@graph` document; nodes reference each other by @id. */
-export const graph = (...nodes: object[]) => ({ "@context": "https://schema.org", "@graph": nodes });
+export const graph = (...nodes: object[]) => ({
+  "@context": "https://schema.org",
+  "@graph": nodes,
+});
 
 export const DEFAULT_SHARE_IMAGE = "/opengraph-image.png";
 
 export const RSS_ALTERNATE = {
-  "application/rss+xml": [{ url: "/notes/rss.xml", title: "Notes by SK Rohan Parveag" }],
+  "application/rss+xml": [
+    { url: "/notes/rss.xml", title: "Notes by SK Rohan Parveag" },
+  ],
 };
 
 /**
@@ -117,13 +135,20 @@ export function pageMeta({
   type?: "website" | "article" | "profile";
   article?: { publishedTime: string; section?: string; tags?: string[] };
 }): Metadata {
-  const ogTitle = title ? `${title} - ${SITE_NAME}` : `${SITE_NAME} - AI Systems Engineer`;
+  const ogTitle = title
+    ? `${title} - ${SITE_NAME}`
+    : `${SITE_NAME} - AI Systems Engineer`;
   // A page's own openGraph replaces the root one, so fall back to the site card explicitly.
   const shareImage = image ?? DEFAULT_SHARE_IMAGE;
   const images = [
     image
       ? { url: shareImage, alt: title ?? SITE_NAME }
-      : { url: shareImage, width: 1200, height: 630, alt: `${SITE_NAME} - AI Systems Engineer` },
+      : {
+          url: shareImage,
+          width: 1200,
+          height: 630,
+          alt: `${SITE_NAME} - AI Systems Engineer`,
+        },
   ];
   return {
     ...(title ? { title } : {}),
@@ -145,7 +170,12 @@ export function pageMeta({
             tags: article.tags,
           }
         : type === "profile"
-          ? { type: "profile", firstName: "Rohan", lastName: "Parveag", username: "DevRohan33" }
+          ? {
+              type: "profile",
+              firstName: "Rohan",
+              lastName: "Parveag",
+              username: "DevRohan33",
+            }
           : { type: "website" }),
     },
     twitter: {

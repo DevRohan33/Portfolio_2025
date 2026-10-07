@@ -13,7 +13,7 @@ const SOCIAL = [
 /**
  * Loads GA4 (page views, including client-side navigation, come from GA4's
  * enhanced measurement) and records the clicks that matter for a portfolio:
- * emailing Rohan (`generate_lead` — the conversion), opening a social profile,
+ * emailing Rohan (`generate_lead`- the conversion), opening a social profile,
  * and visiting a live project.
  */
 export default function Analytics() {
@@ -25,16 +25,26 @@ export default function Analytics() {
       if (!href) return;
 
       if (href.startsWith("mailto:")) {
-        track("generate_lead", { method: "email", page_path: location.pathname });
+        track("generate_lead", {
+          method: "email",
+          page_path: location.pathname,
+        });
         return;
       }
       if (!/^https?:\/\//.test(href) || href.includes(location.host)) return;
 
       const social = SOCIAL.find(([domain]) => href.includes(domain));
       if (social) {
-        track("social_click", { network: social[1], link_url: href, page_path: location.pathname });
+        track("social_click", {
+          network: social[1],
+          link_url: href,
+          page_path: location.pathname,
+        });
       } else if (location.pathname.startsWith("/work/")) {
-        track("project_link_click", { link_url: href, page_path: location.pathname });
+        track("project_link_click", {
+          link_url: href,
+          page_path: location.pathname,
+        });
       }
     };
     document.addEventListener("click", onClick);
@@ -45,7 +55,10 @@ export default function Analytics() {
 
   return (
     <>
-      <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} strategy="afterInteractive" />
+      <Script
+        src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+        strategy="afterInteractive"
+      />
       <Script id="ga4-init" strategy="afterInteractive">
         {`window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}

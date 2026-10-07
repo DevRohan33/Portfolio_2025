@@ -1,11 +1,11 @@
 // Builds src/server/rag/knowledge-index.json for the portfolio assistant.
 //
 // Two sources:
-//   1. rohan_knowledge.md — chunked on its own `##`/`###` boundaries. Section 12
+//   1. rohan_knowledge.md- chunked on its own `##`/`###` boundaries. Section 12
 //      (chatbot behaviour instructions) and 13 (maintenance log) are directives
 //      and meta rather than retrievable facts, so they're excluded; section 12 is
 //      hand-transcribed into src/server/rag/systemPrompt.ts instead.
-//   2. The site's own content — every case study and every note — so the
+//   2. The site's own content- every case study and every note- so the
 //      assistant can answer detailed questions about a project and link to the
 //      page the answer came from.
 //
@@ -30,7 +30,10 @@ const OUT_DIR = path.join(__dirname, "../src/server/rag");
 const OUT_FILE = path.join(OUT_DIR, "knowledge-index.json");
 const MODEL = "text-embedding-3-small";
 
-const EXCLUDED_SECTIONS = ["12. Chatbot behaviour instructions", "13. Maintenance log"];
+const EXCLUDED_SECTIONS = [
+  "12. Chatbot behaviour instructions",
+  "13. Maintenance log",
+];
 
 const MAX_CHUNK_WORDS = 260; // ~350-400 tokens; sections above this split on ###
 
@@ -41,14 +44,20 @@ const KNOWLEDGE_URLS = [
   [/Abhyas/i, "/work/abhyas", "Abhyas Voice Coach"],
   [/Job Radar/i, "/work/job-radar", "Job Radar"],
   [/Business Operations Platform/i, "/work/ai-workspace", "AI Workspace"],
-  [/Technical work at Design Intelligence/i, "/work/agentic-assistant", "Work at Design Intelligence"],
+  [
+    /Technical work at Design Intelligence/i,
+    "/work/agentic-assistant",
+    "Work at Design Intelligence",
+  ],
   [/Skills/i, "/uses", "Stack & skills"],
   [/Other projects/i, "/work", "All work"],
 ];
 
 function knowledgeSource(heading) {
   const hit = KNOWLEDGE_URLS.find(([re]) => re.test(heading));
-  return hit ? { url: hit[1], title: hit[2] } : { url: "/about", title: "About Rohan" };
+  return hit
+    ? { url: hit[1], title: hit[2] }
+    : { url: "/about", title: "About Rohan" };
 }
 
 function stripFrontmatter(md) {
@@ -70,7 +79,10 @@ function splitOnHeading(md, level) {
     }
   }
   if (current) sections.push(current);
-  return sections.map((s) => ({ heading: s.heading, content: s.body.join("\n").trim() }));
+  return sections.map((s) => ({
+    heading: s.heading,
+    content: s.body.join("\n").trim(),
+  }));
 }
 
 function wordCount(s) {
@@ -82,18 +94,26 @@ function knowledgeChunks(md) {
   const chunks = [];
 
   for (const section of top) {
-    if (EXCLUDED_SECTIONS.some((ex) => section.heading.startsWith(ex))) continue;
+    if (EXCLUDED_SECTIONS.some((ex) => section.heading.startsWith(ex)))
+      continue;
 
-    if (wordCount(section.content) > MAX_CHUNK_WORDS && /^###\s/m.test(section.content)) {
+    if (
+      wordCount(section.content) > MAX_CHUNK_WORDS &&
+      /^###\s/m.test(section.content)
+    ) {
       const subs = splitOnHeading(section.content, 3); // ### subsections
       // keep any intro text before the first ### as its own chunk
       const firstSubIdx = section.content.indexOf("\n### ");
-      const intro = firstSubIdx > -1 ? section.content.slice(0, firstSubIdx).trim() : "";
+      const intro =
+        firstSubIdx > -1 ? section.content.slice(0, firstSubIdx).trim() : "";
       if (intro && wordCount(intro) > 15) {
         chunks.push({ heading: section.heading, content: intro });
       }
       for (const sub of subs) {
-        chunks.push({ heading: `${section.heading} - ${sub.heading}`, content: sub.content });
+        chunks.push({
+          heading: `${section.heading} - ${sub.heading}`,
+          content: sub.content,
+        });
       }
     } else {
       chunks.push({ heading: section.heading, content: section.content });
@@ -112,9 +132,11 @@ async function siteChunks() {
 
   for (const s of Object.values(caseStudies)) {
     const url = `/work/${s.slug}`;
-    const links = (s.links ?? []).map((l) => `${l.label}: ${l.href}`).join(", ");
+    const links = (s.links ?? [])
+      .map((l) => `${l.label}: ${l.href}`)
+      .join(", ");
     chunks.push({
-      heading: `Project: ${s.name} — overview`,
+      heading: `Project: ${s.name}- overview`,
       title: s.name,
       url,
       content: [
@@ -130,13 +152,13 @@ async function siteChunks() {
         .join("\n\n"),
     });
     chunks.push({
-      heading: `Project: ${s.name} — architecture and decisions`,
+      heading: `Project: ${s.name}- architecture and decisions`,
       title: s.name,
       url,
       content: [
         `How ${s.name} is built. ${s.architecture}`,
         ...s.architectureBullets.map((b) => `- ${b}`),
-        ...s.decisions.map((d) => `Decision — ${d.title}: ${d.body}`),
+        ...s.decisions.map((d) => `Decision- ${d.title}: ${d.body}`),
         `What Rohan would do differently: ${s.whatIdRedo}`,
       ].join("\n"),
     });
@@ -147,9 +169,12 @@ async function siteChunks() {
     n.body.split(/\n(?=## )/).forEach((section, i) => {
       const lines = section.split("\n");
       const heading = i === 0 ? "introduction" : lines[0].replace(/^##\s+/, "");
-      const text = i === 0 ? `${n.summary}\n\n${section}` : lines.slice(1).join("\n").trim();
+      const text =
+        i === 0
+          ? `${n.summary}\n\n${section}`
+          : lines.slice(1).join("\n").trim();
       chunks.push({
-        heading: `Note: ${n.title} — ${heading}`,
+        heading: `Note: ${n.title}- ${heading}`,
         title: n.title,
         url,
         content: `From Rohan's note "${n.title}" (${n.date}, ${url}).\n\n${text}`,
@@ -192,12 +217,17 @@ async function main() {
     content: chunk.content,
     embedding: res.data[i].embedding,
   }));
-  for (const c of indexed) console.log(`  [${c.id + 1}/${indexed.length}] ${c.heading}  ->  ${c.url}`);
+  for (const c of indexed)
+    console.log(`  [${c.id + 1}/${indexed.length}] ${c.heading}  ->  ${c.url}`);
 
   if (!fs.existsSync(OUT_DIR)) fs.mkdirSync(OUT_DIR, { recursive: true });
   fs.writeFileSync(
     OUT_FILE,
-    JSON.stringify({ builtAt: new Date().toISOString(), model: MODEL, chunks: indexed }),
+    JSON.stringify({
+      builtAt: new Date().toISOString(),
+      model: MODEL,
+      chunks: indexed,
+    }),
   );
   console.log(`Wrote ${indexed.length} chunks to ${OUT_FILE}`);
 }

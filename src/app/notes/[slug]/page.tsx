@@ -19,8 +19,16 @@ import NoteToc from "@/components/notes/NoteToc";
 import ShareNote from "@/components/notes/ShareNote";
 import AuthorCard from "@/components/notes/AuthorCard";
 import JsonLd from "@/components/JsonLd";
-import { BLOG_ID, PERSON_ID, SITE_URL, abs, breadcrumbs, graph, isoMonth, pageMeta } from "@/lib/seo";
-
+import {
+  BLOG_ID,
+  PERSON_ID,
+  SITE_URL,
+  abs,
+  breadcrumbs,
+  graph,
+  isoMonth,
+  pageMeta,
+} from "@/lib/seo";
 
 // TOC · article · TL;DR. The header uses the same columns so its edges line up with the text.
 const columns =
@@ -43,7 +51,11 @@ export async function generateMetadata({
     description: note.summary,
     path: `/notes/${note.slug}`,
     type: "article",
-    article: { publishedTime: isoMonth(note.date), section: topicLabel[note.topic], tags: [topicLabel[note.topic]] },
+    article: {
+      publishedTime: isoMonth(note.date),
+      section: topicLabel[note.topic],
+      tags: [topicLabel[note.topic]],
+    },
   });
 }
 
@@ -100,7 +112,9 @@ export default async function NotePage({
       publisher: { "@id": PERSON_ID },
       isPartOf: { "@id": BLOG_ID },
       articleSection: topicLabel[note.topic],
-      keywords: [topicLabel[note.topic], ...headings.map((h) => h.text)].join(", "),
+      keywords: [topicLabel[note.topic], ...headings.map((h) => h.text)].join(
+        ", ",
+      ),
       wordCount: note.body.split(/\s+/).length,
       timeRequired: `PT${minutes}M`,
       inLanguage: "en",
@@ -186,11 +200,11 @@ export default async function NotePage({
               <div className="mt-14 flex items-end justify-between gap-6 flex-wrap">
                 <div>
                   <p className="font-hand text-[40px] font-bold leading-none -rotate-3 text-paper-text">
-                    — Rohan
+                    - Rohan
                   </p>
                   <p className="mt-4 font-serif italic text-[17px] text-paper-text/60 max-w-[46ch]">
                     Thanks for reading. If you&apos;ve solved this differently,
-                    I&apos;d genuinely like to hear how —{" "}
+                    I&apos;d genuinely like to hear how-{" "}
                     <a
                       href={`mailto:${personalInfo.email}?subject=${encodeURIComponent(`Re: ${note.title}`)}`}
                       className="underline decoration-[#5c7a12] underline-offset-4 hover:text-paper-text"

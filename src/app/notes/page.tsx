@@ -4,10 +4,24 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { notes } from "@/content/notes";
 import { personalInfo } from "@/content/site";
-import { formatNoteDate, notesNewestFirst, readMinutes, topicLabel } from "@/lib/notes";
+import {
+  formatNoteDate,
+  notesNewestFirst,
+  readMinutes,
+  topicLabel,
+} from "@/lib/notes";
 import Reveal from "@/components/Reveal";
 import JsonLd from "@/components/JsonLd";
-import { BLOG_ID, PERSON_ID, WEBSITE_ID, abs, breadcrumbs, graph, isoMonth, pageMeta } from "@/lib/seo";
+import {
+  BLOG_ID,
+  PERSON_ID,
+  WEBSITE_ID,
+  abs,
+  breadcrumbs,
+  graph,
+  isoMonth,
+  pageMeta,
+} from "@/lib/seo";
 import NotesList, { type NoteListItem } from "@/components/notes/NotesList";
 import AuthorCard from "@/components/notes/AuthorCard";
 
@@ -15,13 +29,19 @@ export const metadata: Metadata = pageMeta({
   title: "Notes",
   path: "/notes",
   description:
-    "Long-form technical writing on RAG, data pipelines, and infrastructure — written from systems I've actually built and run.",
+    "Long-form technical writing on RAG, data pipelines, and infrastructure- written from systems I've actually built and run.",
 });
 
 /** The first two sentences of a note, for the handwritten preview. */
 function opening(body: string) {
   const first = body.trim().split(/\n\n+/)[0];
-  return first.match(/[^.!?]+[.!?]+/g)?.slice(0, 2).join(" ").trim() ?? first;
+  return (
+    first
+      .match(/[^.!?]+[.!?]+/g)
+      ?.slice(0, 2)
+      .join(" ")
+      .trim() ?? first
+  );
 }
 
 export default function NotesIndexPage() {
@@ -48,7 +68,8 @@ export default function NotesIndexPage() {
       "@id": BLOG_ID,
       url: abs("/notes"),
       name: "Notes - SK Rohan Parveag",
-      description: "Long-form technical writing on RAG, data pipelines and infrastructure.",
+      description:
+        "Long-form technical writing on RAG, data pipelines and infrastructure.",
       inLanguage: "en",
       author: { "@id": PERSON_ID },
       publisher: { "@id": PERSON_ID },
@@ -72,7 +93,9 @@ export default function NotesIndexPage() {
         <div className="max-w-container mx-auto px-5 lg:px-8">
           {/* Header */}
           <Reveal className="max-w-3xl">
-            <p className="font-mono text-label uppercase text-[#5c7a12]">04 — NOTES</p>
+            <p className="font-mono text-label uppercase text-[#5c7a12]">
+              04- NOTES
+            </p>
             <h1 className="mt-4 font-serif text-[46px] md:text-[68px] leading-[1.02] tracking-[-0.02em] font-medium">
               Things I&apos;ve had to{" "}
               <span className="relative inline-block">
@@ -98,9 +121,10 @@ export default function NotesIndexPage() {
               mostly the hard way ↘
             </p>
             <p className="mt-6 font-serif text-[19px] md:text-[21px] leading-relaxed text-paper-text/70 max-w-[58ch]">
-              Long-form versions of what I build — dedup strategies, RAG isolation, the
-              infrastructure under my products, and what real users taught me. Written after the
-              fact, from systems that actually ran.
+              Long-form versions of what I build- dedup strategies, RAG
+              isolation, the infrastructure under my products, and what real
+              users taught me. Written after the fact, from systems that
+              actually ran.
             </p>
             <div className="mt-6 flex items-center gap-3">
               <Image
@@ -124,8 +148,8 @@ export default function NotesIndexPage() {
             >
               <div className="flex flex-col">
                 <p className="font-mono text-[12px] uppercase tracking-[0.06em] text-paper-text/50">
-                  <span className="text-[#5c7a12]">Latest</span> · {topicLabel[featured.topic]} ·{" "}
-                  {formatNoteDate(featured.date)}
+                  <span className="text-[#5c7a12]">Latest</span> ·{" "}
+                  {topicLabel[featured.topic]} · {formatNoteDate(featured.date)}
                 </p>
                 <h2 className="mt-4 font-serif text-[32px] md:text-[42px] leading-[1.08] font-medium group-hover:text-[#5c7a12] transition-colors">
                   {featured.title}
@@ -134,7 +158,8 @@ export default function NotesIndexPage() {
                   {featured.summary}
                 </p>
                 <span className="mt-auto pt-8 inline-flex items-center gap-1.5 font-mono text-[12px] uppercase tracking-[0.06em]">
-                  Read the note · {readMinutes(featured.body)} min <ArrowUpRight size={14} />
+                  Read the note · {readMinutes(featured.body)} min{" "}
+                  <ArrowUpRight size={14} />
                 </span>
               </div>
 
@@ -152,7 +177,9 @@ export default function NotesIndexPage() {
                 <p className="font-hand text-[25px] leading-[36px] text-[#2c3a5a] font-medium">
                   {opening(featured.body)}
                 </p>
-                <p className="mt-2 font-hand text-[25px] leading-[36px] text-[#2c3a5a]/50">…</p>
+                <p className="mt-2 font-hand text-[25px] leading-[36px] text-[#2c3a5a]/50">
+                  …
+                </p>
                 <span className="absolute right-5 bottom-4 font-hand text-[26px] font-bold text-[#5c7a12] -rotate-6">
                   new!
                 </span>

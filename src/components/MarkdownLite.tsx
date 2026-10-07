@@ -1,12 +1,15 @@
 import { Fragment } from "react";
 import { slugify } from "@/lib/notes";
 
-/** `code` and **bold** — the only inline syntax the notes use. */
+/** `code` and **bold**- the only inline syntax the notes use. */
 function renderInline(text: string) {
   return text.split(/(`[^`]+`|\*\*[^*]+\*\*)/g).map((part, i) => {
     if (part.startsWith("`") && part.endsWith("`")) {
       return (
-        <code key={i} className="font-mono text-[0.85em] bg-paper-muted rounded px-1.5 py-0.5">
+        <code
+          key={i}
+          className="font-mono text-[0.85em] bg-paper-muted rounded px-1.5 py-0.5"
+        >
           {part.slice(1, -1)}
         </code>
       );
@@ -57,9 +60,14 @@ export default function MarkdownLite({ text }: { text: string }) {
           );
         }
         if (block.split("\n").every((line) => line.startsWith("- "))) {
-          const items = block.split("\n").map((line) => line.replace(/^-\s+/, ""));
+          const items = block
+            .split("\n")
+            .map((line) => line.replace(/^-\s+/, ""));
           return (
-            <ul key={i} className="list-disc pl-6 space-y-2 marker:text-[#5c7a12]">
+            <ul
+              key={i}
+              className="list-disc pl-6 space-y-2 marker:text-[#5c7a12]"
+            >
               {items.map((item, j) => (
                 <li key={j}>{renderInline(item)}</li>
               ))}

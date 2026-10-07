@@ -147,14 +147,34 @@ The honest tradeoff: this setup makes me the on-call engineer for four products.
     title:
       "What shipping to a wholesale distributor taught me that no tutorial did",
     summary:
-      "MyLedger (now RYBO) went live with a real, non-technical business. The lessons that mattered weren't about the tech stack.",
+      "RYBO started from a conversation I overheard in a grocery shop. The lessons that mattered after it went live weren't about the tech stack.",
     date: "2026-03",
     topic: "DATA",
-    body: `Every tutorial teaches you to build the feature. Nothing teaches you what happens when the person using it has never used software like it before, has a business to run, and does not have time for your onboarding flow.
+    body: `This one didn't start from a product idea. It started in a grocery shop, where I was standing with a basket, waiting to pay.
+
+## How it actually started
+
+The shop owner was talking to his wholesaler. I wasn't part of it - I was just the customer standing there. But the conversation kept going: who owes what, which bill was from which delivery, what was already paid, a notebook being flipped back and forth, two people trying to agree on a number from memory. Nobody was angry. It was just normal, everyday friction, the kind both of them had clearly accepted as part of the job.
+
+I went home with my groceries and couldn't let it go. Why not try solving that? Not as a startup plan - just as a question I wanted to answer for myself.
+
+So I started planning. The first version was almost embarrassingly small: simple auth, one or two features, built for a single user. No roles, no reports, no multi-device anything. Then I went back to a wholesaler and asked if he would use it - free, no conditions. I wasn't selling anything. I just needed one real person to use it with real data.
+
+That's when the actual work started.
+
+## Every day a new problem
+
+The pattern repeated for months. He would use it for a day, and something would come up. Not a crash - a gap. "This is fine, but what about when the customer pays half now and half later?" "What if my staff takes the order and I'm not in the shop?" "I need to know the stock went out when the bill was made, not after."
+
+Every time I fixed one, I felt like I'd finished. And every time, the fix created the next question. Solve, ship, listen, solve again. The feature list wasn't designed - it grew, one real problem at a time.
+
+After a while the problems changed shape. It stopped being "this doesn't exist" and became "this exists but it's too slow." So I built the easy version. Then the easier version. Then I sat and watched how many taps a sale actually took during a busy hour, and built the easiest version. And then it was about smoothness - fewer screens, better defaults, no waiting - and then more smoothness, because once it's fast enough to trust, every small delay becomes visible again.
+
+That loop is the whole project, honestly. Build, break, simplify, repeat.
 
 ## The gap between "works" and "usable"
 
-MyLedger - renamed RYBO since - technically worked the first week it was live. It was also, in retrospect, built for someone who thinks like a developer - implicit assumptions about what a "session" is, what happens if you close the app mid-entry, what a sensible default should be. None of that matches how a busy distributor actually uses an app between customers walking in. The fixes that mattered most in the first month weren't features - they were removing steps, tightening defaults, and making the one or two actions someone does fifty times a day take one tap instead of three.
+RYBO technically worked the first week it was live. It was also, in retrospect, built for someone who thinks like a developer - implicit assumptions about what a "session" is, what happens if you close the app mid-entry, what a sensible default should be. None of that matches how a busy distributor actually uses an app between customers walking in. The fixes that mattered most in the first month weren't features - they were removing steps, tightening defaults, and making the one or two actions someone does fifty times a day take one tap instead of three.
 
 ## Trust is earned per feature, not once
 
@@ -164,8 +184,24 @@ Getting a real business to migrate off a paper notebook isn't a single decision 
 
 The first real support request wasn't a bug report. It was "why does this price look different from what I set" - a staff-access question, not a code question. That's when the activity log went from a nice-to-have to the most-used feature in the app. Any system with more than one person touching shared data needs an audit trail before it needs almost anything else on the feature list, and I'd learned that in the abstract before - it hits differently when it's a real owner asking a real question about real money.
 
-## What I'd tell myself before starting
+## What I actually learned
 
-Ship the smallest version to the real user faster than feels comfortable. Every week I spent polishing a feature in isolation was a week I wasn't learning what the actual failure modes would be once real data and a real, skeptical user were in the loop. The notebook it replaced had thirty years of institutional trust behind it. Software earns that the same way - by being right, consistently, in front of the person whose business depends on it.`,
+A few things I'd take into any project after this one:
+
+**The problem has to come from outside your head.** I would never have designed this feature set sitting alone with a blank file. It came from a conversation I wasn't even part of. Listening in the real place where the work happens beats brainstorming, every time.
+
+**Ship something small to one real user, earlier than feels comfortable.** My first version was weak. It still taught me more in a week than a month of polishing in isolation would have. Real data and a real, skeptical user find the failure modes you cannot imagine.
+
+**Free was the right price for the first user.** Not as a growth strategy - because what I needed wasn't money, it was honest feedback from someone who had no reason to be polite about it.
+
+**"Solved" usually means "unlocked the next problem."** Every fix revealed the next one. That's not scope creep, that's the product becoming real. I stopped being disappointed by it and started expecting it.
+
+**Speed is a feature, and then smoothness is a feature.** Once something works, nobody thanks you for it - they just notice the three taps that should be one. Reducing steps did more for adoption than any new screen.
+
+**Trust is earned per feature, not once.** Thirty years of a paper notebook isn't beaten by a demo. It's beaten by being right, consistently, where someone's actual money is on the line.
+
+**Audit trails come earlier than you think.** The moment more than one person touches shared data, "who changed this?" becomes the most important question in the app.
+
+The notebook it replaced had decades of institutional trust behind it. Software earns that the same way - slowly, in front of the person whose business depends on it.`,
   },
 ];

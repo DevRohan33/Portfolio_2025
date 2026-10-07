@@ -17,7 +17,7 @@ export const personalInfo = {
 
 /**
  * Answer-first FAQ, shown on /about and marked up as FAQPage. Written the way
- * people (and AI answer engines) actually ask — every answer must stay true to
+ * people (and AI answer engines) actually ask- every answer must stay true to
  * the CV and the case studies.
  */
 export const faqs = [
@@ -35,7 +35,7 @@ export const faqs = [
   },
   {
     q: "How much experience does Rohan have?",
-    a: "He has worked in backend and AI since February 2025 at Design Intelligence LLP — as an intern, then full-time as a Junior Software Engineer from June 2025. Before software he was a maintenance engineer on solar plant systems at Adani Solar.",
+    a: "He has worked in backend and AI since February 2025 at Design Intelligence LLP- as an intern, then full-time as a Junior Software Engineer from June 2025. Before software he was a maintenance engineer on solar plant systems at Adani Solar.",
   },
   {
     q: "What is Rohan's education?",
@@ -318,7 +318,7 @@ Side projects push that further. RYBO (formerly MyLedger) runs a real wholesale 
 Before software, I worked as a maintenance engineer on solar plant systems - different domain, same instinct: a system either holds up under real conditions or it doesn't.`;
 
 export const aboutLead =
-  "I build backend and AI systems — RAG pipelines, tool-calling agents and the data infrastructure underneath them — and I carry them from a loose requirement all the way to something running in production.";
+  "I build backend and AI systems- RAG pipelines, tool-calling agents and the data infrastructure underneath them- and I carry them from a loose requirement all the way to something running in production.";
 
 export const aboutFacts = [
   { label: "Based in", value: "Kolkata, IN · open to relocation" },
@@ -335,7 +335,7 @@ export const principles = [
   {
     number: "02",
     title: "Correctness lives in the backend",
-    body: "Models skip steps. Anything that has to be true — a confirmation before a calculation, a payment counted exactly once — is enforced in code, not requested in a prompt.",
+    body: "Models skip steps. Anything that has to be true- a confirmation before a calculation, a payment counted exactly once- is enforced in code, not requested in a prompt.",
   },
   {
     number: "03",
@@ -346,14 +346,14 @@ export const principles = [
 
 export const journey = [
   {
-    period: "2020 — 2023",
+    period: "2020- 2023",
     title: "Diploma, Electronics & Telecom",
     body: "Circuits, embedded systems, and my first Python and C.",
   },
   {
     period: "Oct 2023",
     title: "Maintenance Engineer, Adani Solar",
-    body: "Large-scale solar plant systems — where a fault means real downtime.",
+    body: "Large-scale solar plant systems- where a fault means real downtime.",
   },
   {
     period: "2024",
@@ -363,7 +363,7 @@ export const journey = [
   {
     period: "Feb 2025",
     title: "Intern, Design Intelligence",
-    body: "React, Python APIs, data pipelines and Three.js — converted to full-time in five months.",
+    body: "React, Python APIs, data pipelines and Three.js- converted to full-time in five months.",
   },
   {
     period: "Jun 2025",
@@ -371,7 +371,7 @@ export const journey = [
     body: "Production LLM systems: an agentic engineering assistant, RAG, ERP and asset pipelines.",
   },
   {
-    period: "2026 — now",
+    period: "2026- now",
     title: "Shipping my own products",
     body: "RYBO live with a real distributor; Abhyas and Job Radar open-sourced.",
   },

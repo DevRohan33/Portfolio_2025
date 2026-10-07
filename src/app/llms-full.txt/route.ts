@@ -6,7 +6,7 @@ import { abs } from "@/lib/seo";
 export const dynamic = "force-static";
 
 /**
- * /llms-full.txt — the complete text of the site in one markdown file, for AI
+ * /llms-full.txt- the complete text of the site in one markdown file, for AI
  * assistants that read a whole site before answering. /llms.txt is the short
  * index; this is the full content behind it.
  */
@@ -40,7 +40,7 @@ ${s.decisions.map((d) => `**${d.title}.** ${d.body}`).join("\n\n")}
 
 ### Results
 
-${s.results.map((r) => `- ${r.value} — ${r.caption}`).join("\n")}
+${s.results.map((r) => `- ${r.value}- ${r.caption}`).join("\n")}
 
 ### What he'd do differently
 
@@ -49,10 +49,13 @@ ${s.whatIdRedo}`,
     .join("\n\n---\n\n");
 
   const notes = notesNewestFirst()
-    .map((n) => `## ${n.title}\n\nURL: ${abs(`/notes/${n.slug}`)} · ${formatNoteDate(n.date)}\n\n${n.summary}\n\n${n.body}`)
+    .map(
+      (n) =>
+        `## ${n.title}\n\nURL: ${abs(`/notes/${n.slug}`)} · ${formatNoteDate(n.date)}\n\n${n.summary}\n\n${n.body}`,
+    )
     .join("\n\n---\n\n");
 
-  const body = `# ${personalInfo.name} — full site content
+  const body = `# ${personalInfo.name}- full site content
 
 > ${personalInfo.title} in Kolkata, India. ${aboutLead}
 
@@ -76,6 +79,9 @@ ${notes}
 `;
 
   return new Response(body, {
-    headers: { "Content-Type": "text/markdown; charset=utf-8", "Cache-Control": "public, max-age=3600" },
+    headers: {
+      "Content-Type": "text/markdown; charset=utf-8",
+      "Cache-Control": "public, max-age=3600",
+    },
   });
 }

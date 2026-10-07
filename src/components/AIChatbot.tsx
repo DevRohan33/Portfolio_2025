@@ -8,7 +8,11 @@ import ChatMarkdown from "@/components/chat/ChatMarkdown";
 import { track } from "@/lib/analytics";
 
 type Source = { title: string; url: string };
-type Message = { role: "assistant" | "user"; content: string; sources?: Source[] };
+type Message = {
+  role: "assistant" | "user";
+  content: string;
+  sources?: Source[];
+};
 
 const AVATAR_SRC = "/hero-frames/avatar-logo.png";
 const STORAGE_KEY = "rohan-chat-v1";
@@ -17,7 +21,7 @@ const MAX_INPUT = 1200;
 const GREETING: Message = {
   role: "assistant",
   content:
-    "Hi! I'm Rohan's AI assistant. I answer from his portfolio — projects, notes, stack and experience — and link you to the page each answer comes from.",
+    "Hi! I'm Rohan's AI assistant. I answer from his portfolio- projects, notes, stack and experience- and link you to the page each answer comes from.",
 };
 
 /** Starter questions that fit the page the visitor is on. */
@@ -30,7 +34,11 @@ function suggestionsFor(pathname: string, pageName: string): string[] {
     ];
   }
   if (pathname.startsWith("/notes/")) {
-    return ["Summarise this note in three lines", "What's the key takeaway here?", "Where did Rohan apply this?"];
+    return [
+      "Summarise this note in three lines",
+      "What's the key takeaway here?",
+      "Where did Rohan apply this?",
+    ];
   }
   if (pathname.startsWith("/about")) {
     return [
@@ -40,7 +48,11 @@ function suggestionsFor(pathname: string, pageName: string): string[] {
     ];
   }
   if (pathname.startsWith("/uses")) {
-    return ["What does he deploy and maintain?", "Which vector databases has he used?", "Does he work with Firebase?"];
+    return [
+      "What does he deploy and maintain?",
+      "Which vector databases has he used?",
+      "Does he work with Firebase?",
+    ];
   }
   return [
     "What's Rohan's experience with RAG?",
@@ -104,9 +116,12 @@ export default function AIChatbot() {
     }
   }, [messages, isStreaming]);
 
-  // The page's own name ("RYBO — SK Rohan Parveag" → "RYBO") for suggestions.
+  // The page's own name ("RYBO- SK Rohan Parveag" → "RYBO") for suggestions.
   useEffect(() => {
-    const t = setTimeout(() => setPageName(document.title.split(/\s[—–-]\s/)[0] ?? ""), 50);
+    const t = setTimeout(
+      () => setPageName(document.title.split(/\s[—–-]\s/)[0] ?? ""),
+      50,
+    );
     return () => clearTimeout(t);
   }, [pathname]);
 
@@ -130,7 +145,8 @@ export default function AIChatbot() {
   }, [isOpen, quietPage]);
 
   useEffect(() => {
-    if (scrollRef.current) scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    if (scrollRef.current)
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
   }, [messages, isStreaming, isOpen]);
 
   useEffect(() => {
@@ -153,11 +169,17 @@ export default function AIChatbot() {
       const question = text.trim().slice(0, MAX_INPUT);
       if (!question || isStreaming) return;
 
-      const history: Message[] = [...messages, { role: "user", content: question }];
+      const history: Message[] = [
+        ...messages,
+        { role: "user", content: question },
+      ];
       setMessages([...history, { role: "assistant", content: "" }]);
       setInput("");
       setIsStreaming(true);
-      track("chat_question", { page_path: pathname, turn: history.filter((m) => m.role === "user").length });
+      track("chat_question", {
+        page_path: pathname,
+        turn: history.filter((m) => m.role === "user").length,
+      });
 
       const controller = new AbortController();
       abortRef.current = controller;
@@ -170,7 +192,9 @@ export default function AIChatbot() {
           signal: controller.signal,
           body: JSON.stringify({
             // The greeting isn't part of the conversation the model needs.
-            messages: history.filter((m) => m !== GREETING && m.content !== GREETING.content).slice(-8)
+            messages: history
+              .filter((m) => m !== GREETING && m.content !== GREETING.content)
+              .slice(-8)
               .map(({ role, content }) => ({ role, content })),
             page: { path: pathname, title: document.title },
           }),
@@ -178,14 +202,19 @@ export default function AIChatbot() {
 
         let sources: Source[] = [];
         try {
-          sources = JSON.parse(decodeURIComponent(res.headers.get("X-Sources") ?? "%5B%5D"));
+          sources = JSON.parse(
+            decodeURIComponent(res.headers.get("X-Sources") ?? "%5B%5D"),
+          );
         } catch {
           sources = [];
         }
 
         if (!res.body) {
           const fallback = await res.text();
-          updateLast(generation, (m) => ({ ...m, content: fallback || "Something went wrong. Try again in a moment." }));
+          updateLast(generation, (m) => ({
+            ...m,
+            content: fallback || "Something went wrong. Try again in a moment.",
+          }));
           return;
         }
 
@@ -200,15 +229,20 @@ export default function AIChatbot() {
         }
         updateLast(generation, (m) => ({
           ...m,
-          content: answer.trim() || "I don't have information on that — try asking about his projects or stack.",
+          content:
+            answer.trim() ||
+            "I don't have information on that- try asking about his projects or stack.",
           sources: res.ok ? sources : [],
         }));
       } catch (err) {
-        const aborted = err instanceof DOMException && err.name === "AbortError";
+        const aborted =
+          err instanceof DOMException && err.name === "AbortError";
         updateLast(generation, (m) => ({
           ...m,
           content: aborted
-            ? (m.content ? `${m.content} …` : "Stopped.")
+            ? m.content
+              ? `${m.content} …`
+              : "Stopped."
             : "Something went wrong. Try again in a moment.",
         }));
       } finally {
@@ -239,7 +273,8 @@ export default function AIChatbot() {
 
   const suggestions = suggestionsFor(pathname, pageName);
   const last = messages[messages.length - 1];
-  const waitingForFirstToken = isStreaming && last?.role === "assistant" && !last.content;
+  const waitingForFirstToken =
+    isStreaming && last?.role === "assistant" && !last.content;
 
   return (
     <div className="flex flex-col items-end">
@@ -254,7 +289,9 @@ export default function AIChatbot() {
             <div className="flex items-center gap-2.5">
               <Avatar size={36} />
               <div>
-                <p className="text-sm font-medium text-text-primary">Ask about Rohan</p>
+                <p className="text-sm font-medium text-text-primary">
+                  Ask about Rohan
+                </p>
                 <div className="flex items-center gap-1.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse-dot" />
                   <span className="font-mono text-[10px] uppercase tracking-[0.06em] text-text-subtle">
@@ -285,12 +322,20 @@ export default function AIChatbot() {
           </div>
 
           {/* Messages */}
-          <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-4" aria-live="polite">
+          <div
+            ref={scrollRef}
+            className="flex-1 overflow-y-auto p-4 space-y-4"
+            aria-live="polite"
+          >
             {messages.map((m, i) => {
               const isLast = i === messages.length - 1;
-              if (m.role === "assistant" && !m.content && isLast && isStreaming) return null;
+              if (m.role === "assistant" && !m.content && isLast && isStreaming)
+                return null;
               return (
-                <div key={i} className={`flex gap-2 ${m.role === "user" ? "flex-row-reverse" : ""}`}>
+                <div
+                  key={i}
+                  className={`flex gap-2 ${m.role === "user" ? "flex-row-reverse" : ""}`}
+                >
                   {m.role === "user" ? (
                     <div className="w-6 h-6 rounded-full flex items-center justify-center shrink-0 bg-accent text-ink">
                       <User size={12} />
@@ -308,7 +353,10 @@ export default function AIChatbot() {
                     >
                       {m.role === "assistant" ? (
                         <>
-                          <ChatMarkdown text={m.content} onNavigate={closeOnMobileNavigate} />
+                          <ChatMarkdown
+                            text={m.content}
+                            onNavigate={closeOnMobileNavigate}
+                          />
                           {isLast && isStreaming && (
                             <span className="inline-block w-1.5 h-3.5 ml-0.5 align-middle bg-accent animate-pulse" />
                           )}
@@ -341,7 +389,10 @@ export default function AIChatbot() {
             {waitingForFirstToken && (
               <div className="flex gap-2 items-center">
                 <Avatar />
-                <div className="px-3.5 py-3 rounded-xl rounded-tl-sm bg-surface-raised flex items-center gap-1" aria-label="Thinking">
+                <div
+                  className="px-3.5 py-3 rounded-xl rounded-tl-sm bg-surface-raised flex items-center gap-1"
+                  aria-label="Thinking"
+                >
                   {[0, 150, 300].map((d) => (
                     <span
                       key={d}
@@ -355,7 +406,9 @@ export default function AIChatbot() {
 
             {messages.length === 1 && !isStreaming && (
               <div className="pt-1">
-                <p className="font-hand text-[20px] font-bold text-text-muted -rotate-1 mb-2">try one of these ↓</p>
+                <p className="font-hand text-[20px] font-bold text-text-muted -rotate-1 mb-2">
+                  try one of these ↓
+                </p>
                 <div className="flex flex-col items-start gap-1.5">
                   {suggestions.map((s) => (
                     <button
@@ -417,7 +470,7 @@ export default function AIChatbot() {
               )}
             </div>
             <p className="mt-2 text-center font-mono text-[9.5px] uppercase tracking-[0.06em] text-text-subtle">
-              AI can be wrong — the linked pages are the source of truth
+              AI can be wrong- the linked pages are the source of truth
             </p>
           </form>
         </div>
@@ -448,7 +501,9 @@ export default function AIChatbot() {
           dismissedRef.current = true;
           setShowPopup(false);
         }}
-        aria-label={isOpen ? "Close chat" : "Open chat with Rohan's AI assistant"}
+        aria-label={
+          isOpen ? "Close chat" : "Open chat with Rohan's AI assistant"
+        }
         aria-expanded={isOpen}
         className="relative w-14 h-14 rounded-full shadow-xl hover:brightness-110 transition-all overflow-hidden border-2 border-accent"
       >

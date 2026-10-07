@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 
 /**
- * A handwritten aside — the personal touch from the notes pages, used sparingly
+ * A handwritten aside- the personal touch from the notes pages, used sparingly
  * across the site. `tone` picks the ink: lime on the dark pages, olive on paper.
  */
 export default function HandNote({

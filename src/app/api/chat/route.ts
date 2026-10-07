@@ -31,7 +31,9 @@ function plain(text: string, status = 200, sources: Source[] = []) {
   });
 }
 
-function parseBody(raw: unknown): { messages: IncomingMessage[]; path?: string; title?: string } | null {
+function parseBody(
+  raw: unknown,
+): { messages: IncomingMessage[]; path?: string; title?: string } | null {
   if (!raw || typeof raw !== "object") return null;
   const body = raw as Record<string, unknown>;
   if (!Array.isArray(body.messages)) return null;
@@ -41,17 +43,24 @@ function parseBody(raw: unknown): { messages: IncomingMessage[]; path?: string; 
       (m): m is IncomingMessage =>
         !!m &&
         typeof m === "object" &&
-        ((m as IncomingMessage).role === "user" || (m as IncomingMessage).role === "assistant") &&
+        ((m as IncomingMessage).role === "user" ||
+          (m as IncomingMessage).role === "assistant") &&
         typeof (m as IncomingMessage).content === "string",
     )
     .slice(-MAX_MESSAGES)
-    .map((m) => ({ role: m.role, content: m.content.slice(0, MAX_CHARS).trim() }))
+    .map((m) => ({
+      role: m.role,
+      content: m.content.slice(0, MAX_CHARS).trim(),
+    }))
     .filter((m) => m.content);
 
   const page = (body.page ?? {}) as Record<string, unknown>;
   const path =
-    typeof page.path === "string" && page.path.startsWith("/") ? page.path.slice(0, 200) : undefined;
-  const title = typeof page.title === "string" ? page.title.slice(0, 200) : undefined;
+    typeof page.path === "string" && page.path.startsWith("/")
+      ? page.path.slice(0, 200)
+      : undefined;
+  const title =
+    typeof page.title === "string" ? page.title.slice(0, 200) : undefined;
   return { messages, path, title };
 }
 
@@ -64,22 +73,30 @@ function retrievalQuery(messages: IncomingMessage[], pageTitle?: string) {
   const users = messages.filter((m) => m.role === "user");
   const last = users[users.length - 1].content;
   const parts = [last];
-  if (users.length > 1 && last.split(/\s+/).length < 12) parts.unshift(users[users.length - 2].content);
-  if (pageTitle && /\b(this|it|its|that|here|these|page|project|note)\b/i.test(last)) parts.push(pageTitle);
+  if (users.length > 1 && last.split(/\s+/).length < 12)
+    parts.unshift(users[users.length - 2].content);
+  if (
+    pageTitle &&
+    /\b(this|it|its|that|here|these|page|project|note)\b/i.test(last)
+  )
+    parts.push(pageTitle);
   return parts.join("\n");
 }
 
 export async function POST(req: NextRequest) {
   const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) {
-    return plain(`The assistant isn't configured yet. Please reach out at ${CONTACT}.`);
+    return plain(
+      `The assistant isn't configured yet. Please reach out at ${CONTACT}.`,
+    );
   }
 
-  const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "local";
+  const ip =
+    req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "local";
   const limit = rateLimit(ip);
   if ("retryAfterMinutes" in limit) {
     return plain(
-      `You've asked a lot of questions in a short time — give it about ${limit.retryAfterMinutes} minute${
+      `You've asked a lot of questions in a short time- give it about ${limit.retryAfterMinutes} minute${
         limit.retryAfterMinutes === 1 ? "" : "s"
       }, or write to Rohan directly at ${CONTACT}.`,
       429,
@@ -93,20 +110,27 @@ export async function POST(req: NextRequest) {
     parsed = null;
   }
   if (!parsed || !parsed.messages.some((m) => m.role === "user")) {
-    return plain("I didn't catch a question there — try asking again.", 400);
+    return plain("I didn't catch a question there- try asking again.", 400);
   }
   const { messages, path, title } = parsed;
 
   const openai = new OpenAI({ apiKey });
 
   try {
-    let contextBlock = "No knowledge base is indexed yet. Say you don't have information on this and point to email.";
+    let contextBlock =
+      "No knowledge base is indexed yet. Say you don't have information on this and point to email.";
     let sources: Source[] = [];
 
     if (isIndexAvailable()) {
       const query = retrievalQuery(messages, title);
-      const embedding = await openai.embeddings.create({ model: "text-embedding-3-small", input: query });
-      const chunks = retrieveTopChunks(embedding.data[0].embedding, query, { topK: 6, currentPath: path });
+      const embedding = await openai.embeddings.create({
+        model: "text-embedding-3-small",
+        input: query,
+      });
+      const chunks = retrieveTopChunks(embedding.data[0].embedding, query, {
+        topK: 6,
+        currentPath: path,
+      });
       if (chunks.length) {
         contextBlock = formatContext(chunks);
         sources = sourcesFor(chunks.slice(0, 3));
@@ -121,10 +145,15 @@ export async function POST(req: NextRequest) {
       {
         model: MODEL,
         stream: true,
-        ...(MODEL.startsWith("gpt-5") ? { reasoning_effort: "minimal" as const } : {}),
+        ...(MODEL.startsWith("gpt-5")
+          ? { reasoning_effort: "minimal" as const }
+          : {}),
         messages: [
           { role: "system", content: SYSTEM_PROMPT },
-          { role: "system", content: `${pageNote}\n\nCONTEXT:\n\n${contextBlock}` },
+          {
+            role: "system",
+            content: `${pageNote}\n\nCONTEXT:\n\n${contextBlock}`,
+          },
           ...messages,
         ],
       },
@@ -142,7 +171,9 @@ export async function POST(req: NextRequest) {
         } catch (error) {
           if (!req.signal.aborted) {
             console.error("Chat stream error:", error);
-            controller.enqueue(encoder.encode("\n\n(The answer was cut off — please try again.)"));
+            controller.enqueue(
+              encoder.encode("\n\n(The answer was cut off- please try again.)"),
+            );
           }
         } finally {
           controller.close();
@@ -159,6 +190,8 @@ export async function POST(req: NextRequest) {
     });
   } catch (error) {
     console.error("Chat API error:", error);
-    return plain("Something went wrong on my end. Please try again in a moment.");
+    return plain(
+      "Something went wrong on my end. Please try again in a moment.",
+    );
   }
 }

@@ -24,7 +24,15 @@ import {
 } from "@/content/site";
 import Reveal from "@/components/Reveal";
 import JsonLd from "@/components/JsonLd";
-import { PERSON_ID, SITE_UPDATED, WEBSITE_ID, abs, breadcrumbs, graph, pageMeta } from "@/lib/seo";
+import {
+  PERSON_ID,
+  SITE_UPDATED,
+  WEBSITE_ID,
+  abs,
+  breadcrumbs,
+  graph,
+  pageMeta,
+} from "@/lib/seo";
 import HandNote from "@/components/HandNote";
 
 export const metadata: Metadata = pageMeta({
@@ -33,7 +41,7 @@ export const metadata: Metadata = pageMeta({
   type: "profile",
   image: "/image/profil.jpg",
   description:
-    "Backend and AI engineer in Kolkata — the story, the way I work, the stack, and the path from solar plants to production LLM systems.",
+    "Backend and AI engineer in Kolkata- the story, the way I work, the stack, and the path from solar plants to production LLM systems.",
 });
 
 const jsonLd = graph(
@@ -74,7 +82,7 @@ export default function AboutPage() {
             <Reveal>
               <p className="label-eyebrow flex items-center gap-3">
                 <span className="w-1.5 h-1.5 bg-accent" />
-                ABOUT — {personalInfo.name.toUpperCase()}
+                ABOUT- {personalInfo.name.toUpperCase()}
               </p>
               <h1 className="mt-5 font-serif text-[48px] sm:text-[60px] md:text-[72px] leading-[1.0] tracking-[-0.03em] font-medium">
                 From requirement
@@ -106,7 +114,10 @@ export default function AboutPage() {
               <Link href="/work" className="pill-primary gap-2">
                 See the work <ArrowUpRight size={16} />
               </Link>
-              <a href={`mailto:${personalInfo.email}`} className="pill-secondary gap-2">
+              <a
+                href={`mailto:${personalInfo.email}`}
+                className="pill-secondary gap-2"
+              >
                 <Mail size={16} /> Email me
               </a>
             </Reveal>
@@ -133,7 +144,9 @@ export default function AboutPage() {
                 />
                 <div className="absolute inset-x-0 bottom-0 p-5 flex items-end justify-between gap-3">
                   <div>
-                    <p className="text-[20px] font-semibold tracking-tight">{personalInfo.name}</p>
+                    <p className="text-[20px] font-semibold tracking-tight">
+                      {personalInfo.name}
+                    </p>
                     <p className="label-eyebrow text-text-muted mt-1">
                       Backend & Applied AI
                     </p>
@@ -169,7 +182,7 @@ export default function AboutPage() {
           <Reveal className="md:col-span-4">
             <div className="md:sticky md:top-32">
               <p className="label-eyebrow">
-                <span className="text-accent">01</span> — THE STORY
+                <span className="text-accent">01</span>- THE STORY
               </p>
               <h2 className="mt-4 font-serif text-[34px] md:text-[42px] font-medium tracking-[-0.02em] leading-tight">
                 Solar plants, then software. Same instinct.
@@ -181,12 +194,19 @@ export default function AboutPage() {
             className="md:col-span-8 font-serif space-y-6 text-[19px] md:text-[20px] leading-[1.75] text-text-muted"
           >
             {paragraphs.map((p, i) => (
-              <p key={i} className={i === 0 ? "text-text-primary text-[21px] md:text-[23px] leading-[1.6]" : undefined}>
+              <p
+                key={i}
+                className={
+                  i === 0
+                    ? "text-text-primary text-[21px] md:text-[23px] leading-[1.6]"
+                    : undefined
+                }
+              >
                 {p}
               </p>
             ))}
             <p className="font-hand text-[40px] font-bold leading-none -rotate-3 text-text-primary pt-2">
-              — Rohan
+              - Rohan
             </p>
           </Reveal>
         </section>
@@ -195,7 +215,7 @@ export default function AboutPage() {
         <section className="mt-28">
           <Reveal>
             <p className="label-eyebrow mb-8">
-              <span className="text-accent">02</span> — HOW I WORK
+              <span className="text-accent">02</span>- HOW I WORK
             </p>
           </Reveal>
           <div className="grid md:grid-cols-3 gap-6">
@@ -205,9 +225,15 @@ export default function AboutPage() {
                 delay={i * 80}
                 className="group relative rounded-card border border-hairline bg-surface p-7 transition-all duration-200 hover:border-accent/40 hover:-translate-y-0.5"
               >
-                <span className="font-mono text-[13px] text-accent">{p.number}</span>
-                <h3 className="mt-6 font-serif text-[26px] font-medium tracking-[-0.015em] leading-tight">{p.title}</h3>
-                <p className="mt-3 text-[15px] leading-relaxed text-text-muted">{p.body}</p>
+                <span className="font-mono text-[13px] text-accent">
+                  {p.number}
+                </span>
+                <h3 className="mt-6 font-serif text-[26px] font-medium tracking-[-0.015em] leading-tight">
+                  {p.title}
+                </h3>
+                <p className="mt-3 text-[15px] leading-relaxed text-text-muted">
+                  {p.body}
+                </p>
                 <span
                   className="absolute top-0 left-7 right-7 h-px bg-gradient-to-r from-accent/0 via-accent/60 to-accent/0 opacity-0 group-hover:opacity-100 transition-opacity"
                   aria-hidden
@@ -222,7 +248,7 @@ export default function AboutPage() {
           <Reveal className="flex flex-wrap items-end justify-between gap-4 mb-10">
             <div>
               <p className="label-eyebrow">
-                <span className="text-accent">03</span> — THE PATH
+                <span className="text-accent">03</span>- THE PATH
               </p>
               <h2 className="mt-4 font-serif text-[34px] md:text-[42px] font-medium tracking-[-0.02em]">
                 Six years, one direction.
@@ -238,18 +264,31 @@ export default function AboutPage() {
             {journey.map((step, i) => {
               const last = i === journey.length - 1;
               return (
-                <Reveal as="li" key={step.title} delay={i * 70} className="relative">
+                <Reveal
+                  as="li"
+                  key={step.title}
+                  delay={i * 70}
+                  className="relative"
+                >
                   <span
                     className={`absolute -left-[29px] md:static md:block w-[9px] h-[9px] ${
-                      last ? "bg-accent shadow-[0_0_0_4px_rgba(198,242,78,0.15)]" : "bg-text-subtle"
+                      last
+                        ? "bg-accent shadow-[0_0_0_4px_rgba(198,242,78,0.15)]"
+                        : "bg-text-subtle"
                     }`}
                     aria-hidden
                   />
-                  <p className={`label-eyebrow md:mt-5 ${last ? "text-accent" : ""}`}>{step.period}</p>
+                  <p
+                    className={`label-eyebrow md:mt-5 ${last ? "text-accent" : ""}`}
+                  >
+                    {step.period}
+                  </p>
                   <h3 className="mt-2 font-serif text-[20px] font-medium leading-snug">
                     {step.title}
                   </h3>
-                  <p className="mt-2 text-[14px] leading-relaxed text-text-muted">{step.body}</p>
+                  <p className="mt-2 text-[14px] leading-relaxed text-text-muted">
+                    {step.body}
+                  </p>
                 </Reveal>
               );
             })}
@@ -260,7 +299,7 @@ export default function AboutPage() {
         <section className="mt-28">
           <Reveal>
             <p className="label-eyebrow mb-8">
-              <span className="text-accent">04</span> — SKILLS
+              <span className="text-accent">04</span>- SKILLS
             </p>
           </Reveal>
           <div className="grid md:grid-cols-2 gap-6">
@@ -277,7 +316,9 @@ export default function AboutPage() {
                       <span className="w-10 h-10 rounded-control bg-accent/10 text-accent flex items-center justify-center">
                         <Icon size={20} />
                       </span>
-                      <h3 className="font-serif text-[24px] font-medium tracking-[-0.01em]">{group.title}</h3>
+                      <h3 className="font-serif text-[24px] font-medium tracking-[-0.01em]">
+                        {group.title}
+                      </h3>
                     </div>
                     <span className="font-mono text-[12px] text-text-subtle">
                       {String(group.items.length).padStart(2, "0")}
@@ -285,7 +326,10 @@ export default function AboutPage() {
                   </div>
                   <ul className="mt-6 divide-y divide-hairline">
                     {group.items.map((item) => (
-                      <li key={item} className="py-2.5 font-mono text-[13px] text-text-muted flex gap-3">
+                      <li
+                        key={item}
+                        className="py-2.5 font-mono text-[13px] text-text-muted flex gap-3"
+                      >
                         <span className="text-accent shrink-0">→</span>
                         <span>{item}</span>
                       </li>
@@ -309,12 +353,16 @@ export default function AboutPage() {
         <section className="mt-28">
           <Reveal>
             <p className="label-eyebrow mb-8">
-              <span className="text-accent">05</span> — EDUCATION
+              <span className="text-accent">05</span>- EDUCATION
             </p>
           </Reveal>
           <div className="grid md:grid-cols-2 gap-6">
             {[
-              { title: education.degree, place: education.institution, period: education.period },
+              {
+                title: education.degree,
+                place: education.institution,
+                period: education.period,
+              },
               {
                 title: education.diploma,
                 place: education.diplomaInstitution,
@@ -331,7 +379,9 @@ export default function AboutPage() {
                 </span>
                 <div>
                   <p className="label-eyebrow">{ed.period}</p>
-                  <h3 className="mt-2 font-serif text-[20px] font-medium leading-snug">{ed.title}</h3>
+                  <h3 className="mt-2 font-serif text-[20px] font-medium leading-snug">
+                    {ed.title}
+                  </h3>
                   <p className="mt-1 text-[14px] text-text-muted">{ed.place}</p>
                 </div>
               </Reveal>
@@ -343,7 +393,7 @@ export default function AboutPage() {
         <section className="mt-28" aria-labelledby="faq-heading">
           <Reveal>
             <p className="label-eyebrow">
-              <span className="text-accent">06</span> — QUICK ANSWERS
+              <span className="text-accent">06</span>- QUICK ANSWERS
             </p>
             <h2
               id="faq-heading"
@@ -387,10 +437,15 @@ export default function AboutPage() {
               <h2 className="font-serif text-[38px] md:text-[56px] font-medium tracking-[-0.025em] leading-[1.02] max-w-xl">
                 Building something that has to work?
               </h2>
-              <HandNote className="mt-4">I reply to everything — usually within a day.</HandNote>
+              <HandNote className="mt-4">
+                I reply to everything- usually within a day.
+              </HandNote>
             </div>
             <div className="flex flex-wrap gap-4 shrink-0">
-              <a href={`mailto:${personalInfo.email}`} className="pill-primary gap-2">
+              <a
+                href={`mailto:${personalInfo.email}`}
+                className="pill-primary gap-2"
+              >
                 <Mail size={16} /> {personalInfo.email}
               </a>
               <a
